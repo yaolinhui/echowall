@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # PostgreSQL 数据库
+  postgres:
+    image: postgres:16-alpine
+    container_name: kudoswall-postgres
+    environment:
+      POSTGRES_USER: kudoswall
+      POSTGRES_PASSWORD: kudoswall
+      POSTGRES_DB: kudoswall
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kudoswall"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis 缓存 + 队列
+  redis:
+    image: redis:7-alpine
+    container_name: kudoswall-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 后端 API
+  backend:
+    build: ./backend
+    container_name: kudoswall-backend
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://kudoswall:kudoswall@postgres:5432/kudoswall
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: npm run start:dev
+
+  # 前端管理后台
+  frontend:
+    build: ./frontend
+    container_name: kudoswall-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    command: npm run dev
+
+volumes:
+  postgres_data:
+  redis_data:

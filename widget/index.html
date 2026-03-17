@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KudosWall Widget Demo</title>
+  <link rel="stylesheet" href="widget.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f9fafb;
+    }
+    h1 {
+      text-align: center;
+      color: #1f2937;
+    }
+    .demo-section {
+      margin: 40px 0;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .demo-section h2 {
+      margin-top: 0;
+      color: #374151;
+      font-size: 18px;
+    }
+    code {
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌟 KudosWall Widget Demo</h1>
+
+  <div class="demo-section">
+    <h2>Carousel Layout (Default)</h2>
+    <div id="widget-carousel"></div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Grid Layout</h2>
+    <div id="widget-grid"></div>
+  </div>
+
+  <div class="demo-section">
+    <h2>List Layout</h2>
+    <div id="widget-list"></div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Dark Theme</h2>
+    <div id="widget-dark" style="background: #1f2937; padding: 20px; border-radius: 12px;"></div>
+  </div>
+
+  <script src="widget.js"></script>
+  <script>
+    // Demo data
+    const demoMentions = [
+      {
+        content: "This is an amazing product! It has completely transformed how I work. Highly recommend to everyone.",
+        authorName: "Sarah Chen",
+        authorAvatar: "https://i.pravatar.cc/150?img=1",
+        authorUrl: "#",
+        platform: "twitter",
+        sourceUrl: "#",
+        postedAt: "2026-03-15T10:00:00Z"
+      },
+      {
+        content: "Great work on the latest release. The new features are exactly what we needed.",
+        authorName: "Alex Johnson",
+        authorAvatar: "https://i.pravatar.cc/150?img=2",
+        authorUrl: "#",
+        platform: "github",
+        sourceUrl: "#",
+        postedAt: "2026-03-14T15:30:00Z"
+      },
+      {
+        content: "Finally found the perfect tool for my workflow. Thank you for building this! 🚀",
+        authorName: "Maria Garcia",
+        authorAvatar: "https://i.pravatar.cc/150?img=5",
+        authorUrl: "#",
+        platform: "producthunt",
+        sourceUrl: "#",
+        postedAt: "2026-03-13T08:45:00Z"
+      }
+    ];
+
+    // Initialize widgets with demo data
+    // In production, these would fetch from the API
+    
+    // Mock the API response
+    const originalFetch = window.fetch;
+    window.fetch = function(url, ...args) {
+      if (url.includes('/api/widget/')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({
+            project: { name: 'Demo Project' },
+            mentions: demoMentions,
+            config: { theme: 'light', layout: 'carousel', maxItems: 10, autoPlay: true }
+          })
+        });
+      }
+      return originalFetch(url, ...args);
+    };
+
+    // Carousel
+    KudosWall.init('widget-carousel', 'demo-project', {
+      layout: 'carousel',
+      autoPlay: true
+    });
+
+    // Grid
+    KudosWall.init('widget-grid', 'demo-project', {
+      layout: 'grid',
+      maxItems: 6
+    });
+
+    // List
+    KudosWall.init('widget-list', 'demo-project', {
+      layout: 'list',
+      maxItems: 3
+    });
+
+    // Dark theme
+    KudosWall.init('widget-dark', 'demo-project', {
+      theme: 'dark',
+      layout: 'carousel'
+    });
+  </script>
+</body>
+</html>

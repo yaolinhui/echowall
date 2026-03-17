@@ -1,0 +1,235 @@
+/**
+ * KudosWall Widget Styles
+ */
+
+.kudoswall-widget {
+  --kw-primary: #0ea5e9;
+  --kw-bg: #ffffff;
+  --kw-text: #1f2937;
+  --kw-text-muted: #6b7280;
+  --kw-border: #e5e7eb;
+  --kw-radius: 12px;
+  --kw-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 100%;
+}
+
+/* Dark theme */
+.kudoswall-theme-dark {
+  --kw-bg: #1f2937;
+  --kw-text: #f9fafb;
+  --kw-text-muted: #9ca3af;
+  --kw-border: #374151;
+  --kw-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Loading & Empty states */
+.kudoswall-loading,
+.kudoswall-empty,
+.kudoswall-error {
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--kw-text-muted);
+  background: var(--kw-bg);
+  border-radius: var(--kw-radius);
+  border: 1px solid var(--kw-border);
+}
+
+.kudoswall-error {
+  color: #ef4444;
+}
+
+/* Item styles */
+.kudoswall-item {
+  background: var(--kw-bg);
+  border: 1px solid var(--kw-border);
+  border-radius: var(--kw-radius);
+  padding: 20px;
+  box-shadow: var(--kw-shadow);
+}
+
+.kudoswall-content {
+  margin-bottom: 16px;
+}
+
+.kudoswall-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--kw-text);
+}
+
+.kudoswall-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--kw-border);
+}
+
+.kudoswall-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kudoswall-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.kudoswall-author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.kudoswall-author-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--kw-text);
+  text-decoration: none;
+}
+
+.kudoswall-author-name:hover {
+  color: var(--kw-primary);
+}
+
+.kudoswall-platform {
+  font-size: 12px;
+  color: var(--kw-text-muted);
+  text-transform: capitalize;
+}
+
+.kudoswall-link {
+  font-size: 13px;
+  color: var(--kw-primary);
+  text-decoration: none;
+}
+
+.kudoswall-link:hover {
+  text-decoration: underline;
+}
+
+/* Grid layout */
+.kudoswall-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* List layout */
+.kudoswall-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.kudoswall-list .kudoswall-item {
+  max-width: 100%;
+}
+
+/* Carousel layout */
+.kudoswall-carousel {
+  position: relative;
+}
+
+.kudoswall-carousel-track {
+  display: flex;
+  overflow: hidden;
+}
+
+.kudoswall-carousel .kudoswall-item {
+  flex: 0 0 100%;
+  display: none;
+}
+
+.kudoswall-carousel .kudoswall-item.kudoswall-active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.kudoswall-carousel-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.kudoswall-prev,
+.kudoswall-next {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--kw-border);
+  background: var(--kw-bg);
+  color: var(--kw-text);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.kudoswall-prev:hover,
+.kudoswall-next:hover {
+  background: var(--kw-primary);
+  color: white;
+  border-color: var(--kw-primary);
+}
+
+.kudoswall-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.kudoswall-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: var(--kw-border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.kudoswall-dot.active {
+  background: var(--kw-primary);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .kudoswall-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .kudoswall-item {
+    padding: 16px;
+  }
+  
+  .kudoswall-text {
+    font-size: 14px;
+  }
+  
+  .kudoswall-avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
