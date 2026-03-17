@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/yaolinhui/kudoswall/discussions
+    about: 请使用 Discussions 进行一般性讨论和问题 / Please use Discussions for general questions and discussions
+  - name: Documentation
+    url: https://github.com/yaolinhui/kudoswall#readme
+    about: 查看项目文档 / View project documentation

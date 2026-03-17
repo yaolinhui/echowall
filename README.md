@@ -8,6 +8,10 @@
 
 > 🚀 **轻量级社交证明工具** —— 自动抓取全网好评，生成可嵌入网站的口碑墙
 
+[English](./README_EN.md) | **简体中文**
+
+---
+
 ## 📖 产品简介
 
 **KudosWall** 是一款面向独立开发者、创作者和小型企业的开源社交证明工具。它能自动从 GitHub、Product Hunt、Twitter、知乎、小红书等平台抓取正面评价，通过 AI 情感分析筛选后，生成可嵌入网站的展示组件，帮助用户低成本建立信任、提升转化。
@@ -168,7 +172,7 @@ make test
 
 ## 🤝 贡献指南
 
-欢迎提交 Issue 和 PR！
+欢迎提交 Issue 和 PR！请阅读 [贡献指南](./CONTRIBUTING.md) 了解详细信息。
 
 1. Fork 本项目
 2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
@@ -176,11 +180,24 @@ make test
 4. 推送分支 (`git push origin feature/AmazingFeature`)
 5. 创建 Pull Request
 
+请确保代码遵循编码规范并通过所有测试。
+
 ---
 
 ## 📄 开源协议
 
 MIT License © 2026 [yaolinhui](https://github.com/yaolinhui)
+
+详见 [LICENSE](./LICENSE) 文件。
+
+---
+
+## 🙏 致谢
+
+- [NestJS](https://nestjs.com/) - 渐进式 Node.js 框架
+- [React](https://react.dev/) - UI 库
+- [Tailwind CSS](https://tailwindcss.com/) - 原子化 CSS 框架
+- [Bull](https://github.com/OptimalBits/bull) - Redis 队列系统
 
 ---
 
@@ -189,3 +206,14 @@ MIT License © 2026 [yaolinhui](https://github.com/yaolinhui)
 如果这个项目对你有帮助，请给个 ⭐ 支持一下！
 
 [![Star History Chart](https://api.star-history.com/svg?repos=yaolinhui/kudoswall&type=Date)](https://star-history.com/#yaolinhui/kudoswall&Date)
+
+---
+
+## 📮 联系方式
+
+- 问题反馈: [GitHub Issues](https://github.com/yaolinhui/kudoswall/issues)
+- 功能建议: 请使用 GitHub Discussions
+
+---
+
+<p align="center">Made with ❤️ by <a href="https://github.com/yaolinhui">yaolinhui</a></p>
