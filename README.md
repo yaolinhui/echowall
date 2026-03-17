@@ -141,7 +141,8 @@ make test
 
 - [📘 后端开发指南](./backend/README.md)
 - [📗 前端开发指南](./frontend/README.md)
-- [🧪 测试报告](./docs/testing/TEST_REPORT_FINAL.md)
+- [🧪 本地测试指南](./docs/testing/LOCAL_TESTING_GUIDE.md) ⬅️ **新手指引**
+- [📊 测试报告](./docs/testing/TEST_REPORT_FINAL.md)
 - [📋 API 文档](./docs/API.md)（待完善）
 - [🏗️ 架构设计](./docs/ARCHITECTURE.md)（待完善）
 

@@ -141,7 +141,8 @@ make test
 
 - [📘 Backend Development Guide](./backend/README.md)
 - [📗 Frontend Development Guide](./frontend/README.md)
-- [🧪 Test Report](./docs/testing/TEST_REPORT_FINAL.md)
+- [🧪 Local Testing Guide](./docs/testing/LOCAL_TESTING_GUIDE.md) ⬅️ **Getting Started**
+- [📊 Test Report](./docs/testing/TEST_REPORT_FINAL.md)
 - [📋 API Documentation](./docs/API.md) (WIP)
 - [🏗️ Architecture Design](./docs/ARCHITECTURE.md) (WIP)
 
