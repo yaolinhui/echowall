@@ -21,26 +21,56 @@ import { FetcherModule } from './fetcher/fetcher.module';
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('database.host'),
-        port: configService.get('database.port'),
-        username: configService.get('database.username'),
-        password: configService.get('database.password'),
-        database: configService.get('database.database'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get('NODE_ENV') !== 'production',
-        logging: configService.get('NODE_ENV') === 'development',
-      }),
+      useFactory: (configService: ConfigService) => {
+        const dbType = configService.get('DB_TYPE') || 'postgres';
+        
+        // SQLite 配置（无需 Docker，适合本地开发）
+        if (dbType === 'sqlite') {
+          return {
+            type: 'sqlite',
+            database: configService.get('DB_DATABASE') || ':memory:',
+            entities: [__dirname + '/**/*.entity{.ts,.js}'],
+            synchronize: true,
+            logging: configService.get('NODE_ENV') === 'development',
+          };
+        }
+        
+        // PostgreSQL 配置（生产环境）
+        return {
+          type: 'postgres',
+          host: configService.get('database.host'),
+          port: configService.get('database.port'),
+          username: configService.get('database.username'),
+          password: configService.get('database.password'),
+          database: configService.get('database.database'),
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: configService.get('NODE_ENV') !== 'production',
+          logging: configService.get('NODE_ENV') === 'development',
+        };
+      },
     }),
     BullModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        redis: {
-          host: configService.get('redis.host'),
-          port: configService.get('redis.port'),
-        },
-      }),
+      useFactory: (configService: ConfigService) => {
+        const redisEnabled = configService.get('REDIS_ENABLED') !== 'false';
+        
+        if (!redisEnabled) {
+          // 使用内存队列（无需 Redis，适合本地开发）
+          return {
+            redis: {
+              host: 'localhost',
+              port: 6379,
+            },
+          };
+        }
+        
+        return {
+          redis: {
+            host: configService.get('redis.host'),
+            port: configService.get('redis.port'),
+          },
+        };
+      },
     }),
     UsersModule,
     ProjectsModule,
