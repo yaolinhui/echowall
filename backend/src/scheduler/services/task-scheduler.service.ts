@@ -129,7 +129,7 @@ export class TaskSchedulerService implements OnModuleInit {
     };
 
     return this.scheduleTask(
-      TaskType.NOTIFICATION,
+      TaskType.EMAIL_NOTIFICATION,
       taskData,
       QUEUE_NAMES.NOTIFICATION,
       options
