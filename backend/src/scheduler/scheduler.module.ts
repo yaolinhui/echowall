@@ -13,7 +13,7 @@ import { MetricsService } from './services/metrics.service';
 import { TaskSchedulerService } from './services/task-scheduler.service';
 
 // Processors
-import { FetchProcessor } from './processors/fetch.processor';
+
 import { AnalysisProcessor } from './processors/analysis.processor';
 import { NotificationProcessor } from './processors/notification.processor';
 import { DlqProcessor } from './processors/dlq.processor';
@@ -103,7 +103,6 @@ import { QUEUE_NAMES } from './constants/queue.constants';
     TaskSchedulerService,
 
     // Processors
-    FetchProcessor,
     AnalysisProcessor,
     NotificationProcessor,
     DlqProcessor,
