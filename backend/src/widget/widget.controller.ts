@@ -49,12 +49,12 @@ export class WidgetController {
   const mentions = ${JSON.stringify(data.mentions)};
   const project = ${JSON.stringify(data.project)};
   
-  function initKudosWall() {
-    const container = document.getElementById('kudoswall-widget');
+  function initEchoWall() {
+    const container = document.getElementById('echowall-widget');
     if (!container) return;
     
     const widget = document.createElement('div');
-    widget.className = 'kudoswall-widget kudoswall-theme-' + config.theme;
+    widget.className = 'echowall-widget echowall-theme-' + config.theme;
     widget.innerHTML = renderMentions();
     container.appendChild(widget);
     
@@ -65,12 +65,12 @@ export class WidgetController {
   
   function renderMentions() {
     const items = mentions.map(m => \`
-      <div class="kudoswall-item">
-        <div class="kudoswall-content">\${m.content}</div>
-        <div class="kudoswall-author">
-          <img src="\${m.authorAvatar || 'https://cdn.kudoswall.io/default-avatar.png'}" alt="" />
+      <div class="echowall-item">
+        <div class="echowall-content">\${m.content}</div>
+        <div class="echowall-author">
+          <img src="\${m.authorAvatar || 'https://cdn.echowall.io/default-avatar.png'}" alt="" />
           <a href="\${m.sourceUrl}" target="_blank">\${m.authorName || 'Anonymous'}</a>
-          <span class="kudoswall-platform">\${m.platform}</span>
+          <span class="echowall-platform">\${m.platform}</span>
         </div>
       </div>
     \`).join('');
@@ -80,7 +80,7 @@ export class WidgetController {
   
   function initCarousel(container) {
     let current = 0;
-    const items = container.querySelectorAll('.kudoswall-item');
+    const items = container.querySelectorAll('.echowall-item');
     if (items.length <= 1) return;
     
     setInterval(() => {
@@ -92,9 +92,9 @@ export class WidgetController {
   }
   
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initKudosWall);
+    document.addEventListener('DOMContentLoaded', initEchoWall);
   } else {
-    initKudosWall();
+    initEchoWall();
   }
 })();
 `;

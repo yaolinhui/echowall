@@ -1,6 +1,6 @@
-# KudosWall 本地开发运行指南
+# EchoWall 本地开发运行指南
 
-> 本指南介绍如何在本地环境中完整运行 KudosWall 应用
+> 本指南介绍如何在本地环境中完整运行 EchoWall 应用
 
 ---
 
@@ -231,7 +231,7 @@ cd frontend && npm run dev
 ## 📁 项目结构说明
 
 ```
-KudosWall/
+EchoWall/
 ├── backend/                 # NestJS 后端
 │   ├── src/
 │   │   ├── main.ts         # 应用入口

@@ -1,8 +1,8 @@
-# Contributing to KudosWall
+# Contributing to EchoWall
 
-首先，感谢你考虑为 KudosWall 做出贡献！🎉
+首先，感谢你考虑为 EchoWall 做出贡献！🎉
 
-First off, thank you for considering contributing to KudosWall! 🎉
+First off, thank you for considering contributing to EchoWall! 🎉
 
 ---
 
@@ -10,9 +10,9 @@ First off, thank you for considering contributing to KudosWall! 🎉
 
 ### 报告问题 / Reporting Issues
 
-**中文**: 如果你发现了 bug 或有功能建议，请通过 [GitHub Issues](https://github.com/yaolinhui/kudoswall/issues) 提交。
+**中文**: 如果你发现了 bug 或有功能建议，请通过 [GitHub Issues](https://github.com/yaolinhui/echowall/issues) 提交。
 
-**English**: If you find a bug or have a feature suggestion, please submit via [GitHub Issues](https://github.com/yaolinhui/kudoswall/issues).
+**English**: If you find a bug or have a feature suggestion, please submit via [GitHub Issues](https://github.com/yaolinhui/echowall/issues).
 
 提交问题时请包含：
 - 问题描述（清晰简洁）
@@ -186,7 +186,7 @@ We pledge to make participation in our project a harassment-free experience for 
 ## 获取帮助 / Getting Help
 
 - 查看 [文档](./docs/) / Check [Documentation](./docs/)
-- 在 [Discussions](https://github.com/yaolinhui/kudoswall/discussions) 提问 / Ask in [Discussions](https://github.com/yaolinhui/kudoswall/discussions)
+- 在 [Discussions](https://github.com/yaolinhui/echowall/discussions) 提问 / Ask in [Discussions](https://github.com/yaolinhui/echowall/discussions)
 - 加入我们的社区（待建立）/ Join our community (coming soon)
 
 ---

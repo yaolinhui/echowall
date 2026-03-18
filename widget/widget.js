@@ -1,5 +1,5 @@
 /**
- * KudosWall Widget v1.0.0
+ * EchoWall Widget v1.0.0
  * A lightweight embeddable widget for displaying social proof
  */
 
@@ -8,12 +8,12 @@
     ? (module.exports = factory())
     : typeof define === 'function' && define.amd
     ? define(factory)
-    : ((global = typeof globalThis !== 'undefined' ? globalThis : global || self), (global.KudosWall = factory()));
+    : ((global = typeof globalThis !== 'undefined' ? globalThis : global || self), (global.EchoWall = factory()));
 })(this, function () {
   'use strict';
 
   const DEFAULT_CONFIG = {
-    apiUrl: 'https://api.kudoswall.io',
+    apiUrl: 'https://api.echowall.io',
     theme: 'light',
     layout: 'carousel',
     maxItems: 10,
@@ -21,11 +21,11 @@
     autoPlayInterval: 5000,
   };
 
-  class KudosWallWidget {
+  class EchoWallWidget {
     constructor(containerId, projectId, options = {}) {
       this.container = document.getElementById(containerId);
       if (!this.container) {
-        throw new Error(`KudosWall: Container with id "${containerId}" not found`);
+        throw new Error(`EchoWall: Container with id "${containerId}" not found`);
       }
 
       this.projectId = projectId;
@@ -38,10 +38,10 @@
     }
 
     async init() {
-      this.container.className = `kudoswall-widget kudoswall-theme-${this.config.theme}`;
+      this.container.className = `echowall-widget echowall-theme-${this.config.theme}`;
       
       // Add loading state
-      this.container.innerHTML = '<div class="kudoswall-loading">Loading...</div>';
+      this.container.innerHTML = '<div class="echowall-loading">Loading...</div>';
 
       try {
         await this.fetchData();
@@ -50,8 +50,8 @@
           this.startAutoPlay();
         }
       } catch (error) {
-        this.container.innerHTML = `<div class="kudoswall-error">Failed to load mentions</div>`;
-        console.error('KudosWall:', error);
+        this.container.innerHTML = `<div class="echowall-error">Failed to load mentions</div>`;
+        console.error('EchoWall:', error);
       }
     }
 
@@ -71,7 +71,7 @@
 
     render() {
       if (this.mentions.length === 0) {
-        this.container.innerHTML = '<div class="kudoswall-empty">No mentions yet</div>';
+        this.container.innerHTML = '<div class="echowall-empty">No mentions yet</div>';
         return;
       }
 
@@ -85,18 +85,18 @@
 
       switch (this.config.layout) {
         case 'grid':
-          return `<div class="kudoswall-grid">${itemsHTML}</div>`;
+          return `<div class="echowall-grid">${itemsHTML}</div>`;
         case 'list':
-          return `<div class="kudoswall-list">${itemsHTML}</div>`;
+          return `<div class="echowall-list">${itemsHTML}</div>`;
         case 'carousel':
         default:
           return `
-            <div class="kudoswall-carousel">
-              <div class="kudoswall-carousel-track">${itemsHTML}</div>
-              <div class="kudoswall-carousel-nav">
-                <button class="kudoswall-prev" aria-label="Previous">&#8249;</button>
-                <div class="kudoswall-dots">${this.getDotsHTML()}</div>
-                <button class="kudoswall-next" aria-label="Next">&#8250;</button>
+            <div class="echowall-carousel">
+              <div class="echowall-carousel-track">${itemsHTML}</div>
+              <div class="echowall-carousel-nav">
+                <button class="echowall-prev" aria-label="Previous">&#8249;</button>
+                <div class="echowall-dots">${this.getDotsHTML()}</div>
+                <button class="echowall-next" aria-label="Next">&#8250;</button>
               </div>
             </div>
           `;
@@ -107,25 +107,25 @@
       const avatar = mention.authorAvatar || 'https://www.gravatar.com/avatar/?d=mp';
       const author = mention.authorName || 'Anonymous';
       const date = mention.postedAt ? new Date(mention.postedAt).toLocaleDateString() : '';
-      const activeClass = this.config.layout === 'carousel' && index === this.currentIndex ? 'kudoswall-active' : '';
+      const activeClass = this.config.layout === 'carousel' && index === this.currentIndex ? 'echowall-active' : '';
 
       return `
-        <div class="kudoswall-item ${activeClass}" data-index="${index}">
-          <div class="kudoswall-content">
-            <p class="kudoswall-text">${this.escapeHtml(mention.content)}</p>
+        <div class="echowall-item ${activeClass}" data-index="${index}">
+          <div class="echowall-content">
+            <p class="echowall-text">${this.escapeHtml(mention.content)}</p>
           </div>
-          <div class="kudoswall-footer">
-            <div class="kudoswall-author">
-              <img src="${avatar}" alt="${author}" class="kudoswall-avatar" loading="lazy" />
-              <div class="kudoswall-author-info">
-                <a href="${mention.authorUrl || '#'}" target="_blank" rel="noopener" class="kudoswall-author-name">
+          <div class="echowall-footer">
+            <div class="echowall-author">
+              <img src="${avatar}" alt="${author}" class="echowall-avatar" loading="lazy" />
+              <div class="echowall-author-info">
+                <a href="${mention.authorUrl || '#'}" target="_blank" rel="noopener" class="echowall-author-name">
                   ${author}
                 </a>
-                <span class="kudoswall-platform">${mention.platform}</span>
+                <span class="echowall-platform">${mention.platform}</span>
               </div>
             </div>
             ${mention.sourceUrl ? `
-              <a href="${mention.sourceUrl}" target="_blank" rel="noopener" class="kudoswall-link">
+              <a href="${mention.sourceUrl}" target="_blank" rel="noopener" class="echowall-link">
                 View
               </a>
             ` : ''}
@@ -137,16 +137,16 @@
     getDotsHTML() {
       if (this.mentions.length <= 1) return '';
       return this.mentions
-        .map((_, i) => `<button class="kudoswall-dot ${i === this.currentIndex ? 'active' : ''}" data-index="${i}"></button>`)
+        .map((_, i) => `<button class="echowall-dot ${i === this.currentIndex ? 'active' : ''}" data-index="${i}"></button>`)
         .join('');
     }
 
     attachEventListeners() {
       if (this.config.layout !== 'carousel') return;
 
-      const prevBtn = this.container.querySelector('.kudoswall-prev');
-      const nextBtn = this.container.querySelector('.kudoswall-next');
-      const dots = this.container.querySelectorAll('.kudoswall-dot');
+      const prevBtn = this.container.querySelector('.echowall-prev');
+      const nextBtn = this.container.querySelector('.echowall-next');
+      const dots = this.container.querySelectorAll('.echowall-dot');
 
       prevBtn?.addEventListener('click', () => this.prev());
       nextBtn?.addEventListener('click', () => this.next());
@@ -182,11 +182,11 @@
     }
 
     updateCarousel() {
-      const items = this.container.querySelectorAll('.kudoswall-item');
-      const dots = this.container.querySelectorAll('.kudoswall-dot');
+      const items = this.container.querySelectorAll('.echowall-item');
+      const dots = this.container.querySelectorAll('.echowall-dot');
 
       items.forEach((item, i) => {
-        item.classList.toggle('kudoswall-active', i === this.currentIndex);
+        item.classList.toggle('echowall-active', i === this.currentIndex);
       });
 
       dots.forEach((dot, i) => {
@@ -221,15 +221,15 @@
 
   // Auto-initialize widgets
   function autoInit() {
-    const containers = document.querySelectorAll('[data-kudoswall]');
+    const containers = document.querySelectorAll('[data-echowall]');
     containers.forEach((container) => {
-      const projectId = container.getAttribute('data-kudoswall');
+      const projectId = container.getAttribute('data-echowall');
       const theme = container.getAttribute('data-theme') || 'light';
       const layout = container.getAttribute('data-layout') || 'carousel';
       const maxItems = parseInt(container.getAttribute('data-max-items') || '10', 10);
       const autoPlay = container.getAttribute('data-autoplay') !== 'false';
 
-      new KudosWallWidget(container.id, projectId, {
+      new EchoWallWidget(container.id, projectId, {
         theme,
         layout,
         maxItems,
@@ -247,7 +247,7 @@
 
   // Expose API
   return {
-    init: (containerId, projectId, options) => new KudosWallWidget(containerId, projectId, options),
+    init: (containerId, projectId, options) => new EchoWallWidget(containerId, projectId, options),
     autoInit,
   };
 });

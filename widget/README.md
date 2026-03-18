@@ -1,4 +1,4 @@
-# KudosWall Widget
+# EchoWall Widget
 
 A lightweight, embeddable widget for displaying social proof mentions.
 
@@ -7,22 +7,22 @@ A lightweight, embeddable widget for displaying social proof mentions.
 ### 1. Include the files
 
 ```html
-<link rel="stylesheet" href="https://cdn.kudoswall.io/widget.css">
-<script src="https://cdn.kudoswall.io/widget.js"></script>
+<link rel="stylesheet" href="https://cdn.echowall.io/widget.css">
+<script src="https://cdn.echowall.io/widget.js"></script>
 ```
 
 ### 2. Add the widget container
 
 ```html
-<div id="kudoswall-widget" data-kudoswall="YOUR_PROJECT_ID"></div>
+<div id="echowall-widget" data-echowall="YOUR_PROJECT_ID"></div>
 ```
 
 ### 3. Configure (optional)
 
 ```html
 <div 
-  id="kudoswall-widget"
-  data-kudoswall="YOUR_PROJECT_ID"
+  id="echowall-widget"
+  data-echowall="YOUR_PROJECT_ID"
   data-theme="dark"
   data-layout="grid"
   data-max-items="6"
@@ -33,12 +33,12 @@ A lightweight, embeddable widget for displaying social proof mentions.
 ## Manual Initialization
 
 ```javascript
-const widget = KudosWall.init('kudoswall-widget', 'YOUR_PROJECT_ID', {
+const widget = EchoWall.init('echowall-widget', 'YOUR_PROJECT_ID', {
   theme: 'light',
   layout: 'carousel',
   maxItems: 10,
   autoPlay: true,
-  apiUrl: 'https://api.kudoswall.io'
+  apiUrl: 'https://api.echowall.io'
 });
 
 // Destroy widget
@@ -53,7 +53,7 @@ widget.destroy();
 | `layout` | string | 'carousel' | Layout: 'carousel', 'grid', or 'list' |
 | `maxItems` | number | 10 | Maximum mentions to display |
 | `autoPlay` | boolean | true | Auto-rotate carousel |
-| `apiUrl` | string | 'https://api.kudoswall.io' | API base URL |
+| `apiUrl` | string | 'https://api.echowall.io' | API base URL |
 
 ## Layouts
 

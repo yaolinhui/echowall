@@ -1,6 +1,6 @@
-# KudosWall 🌟
+# EchoWall 🌟
 
-[![CI](https://github.com/yaolinhui/kudoswall/actions/workflows/ci.yml/badge.svg)](https://github.com/yaolinhui/kudoswall/actions/workflows/ci.yml)
+[![CI](https://github.com/yaolinhui/echowall/actions/workflows/ci.yml/badge.svg)](https://github.com/yaolinhui/echowall/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)](https://nodejs.org/)
 [![NestJS](https://img.shields.io/badge/NestJS-10.x-red.svg)](https://nestjs.com/)
@@ -14,7 +14,7 @@
 
 ## 📖 Introduction
 
-**KudosWall** is an open-source social proof tool designed for indie developers, creators, and small businesses. It automatically collects positive mentions from platforms like GitHub, Product Hunt, Twitter, Zhihu, and Xiaohongshu, filters them through AI sentiment analysis, and generates embeddable widgets for your website — helping you build trust and boost conversions at low cost.
+**EchoWall** is an open-source social proof tool designed for indie developers, creators, and small businesses. It automatically collects positive mentions from platforms like GitHub, Product Hunt, Twitter, Zhihu, and Xiaohongshu, filters them through AI sentiment analysis, and generates embeddable widgets for your website — helping you build trust and boost conversions at low cost.
 
 ### ✨ Key Features
 
@@ -47,7 +47,7 @@
 ## 📁 Project Structure
 
 ```
-KudosWall/
+EchoWall/
 ├── 📂 backend/              # NestJS backend service
 │   ├── src/
 │   │   ├── adapters/        # Platform adapters (GitHub, ProductHunt...)
@@ -75,7 +75,7 @@ KudosWall/
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/yaolinhui/kudoswall.git
+git clone https://github.com/yaolinhui/echowall.git
 cd kudoswall
 
 # 2. Configure environment variables
@@ -190,6 +190,8 @@ Please ensure your code follows our coding standards and all tests pass.
 
 MIT License © 2026 [yaolinhui](https://github.com/yaolinhui)
 
+> Formerly known as KudosWall, renamed to EchoWall to avoid naming conflicts
+
 See [LICENSE](./LICENSE) for full details.
 
 ---
@@ -213,7 +215,7 @@ If this project helps you, please give us a ⭐!
 
 ## 📮 Contact
 
-- Issues: [GitHub Issues](https://github.com/yaolinhui/kudoswall/issues)
+- Issues: [GitHub Issues](https://github.com/yaolinhui/echowall/issues)
 - Email: Please use GitHub issues for bug reports and feature requests
 
 ---

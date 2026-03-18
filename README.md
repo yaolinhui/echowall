@@ -1,6 +1,6 @@
-# KudosWall 🌟
+# EchoWall 🌟
 
-[![CI](https://github.com/yaolinhui/kudoswall/actions/workflows/ci.yml/badge.svg)](https://github.com/yaolinhui/kudoswall/actions/workflows/ci.yml)
+[![CI](https://github.com/yaolinhui/echowall/actions/workflows/ci.yml/badge.svg)](https://github.com/yaolinhui/echowall/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)](https://nodejs.org/)
 [![NestJS](https://img.shields.io/badge/NestJS-10.x-red.svg)](https://nestjs.com/)
@@ -14,7 +14,7 @@
 
 ## 📖 产品简介
 
-**KudosWall** 是一款面向独立开发者、创作者和小型企业的开源社交证明工具。它能自动从 GitHub、Product Hunt、Twitter、知乎、小红书等平台抓取正面评价，通过 AI 情感分析筛选后，生成可嵌入网站的展示组件，帮助用户低成本建立信任、提升转化。
+**EchoWall** 是一款面向独立开发者、创作者和小型企业的开源社交证明工具。它能自动从 GitHub、Product Hunt、Twitter、知乎、小红书等平台抓取正面评价，通过 AI 情感分析筛选后，生成可嵌入网站的展示组件，帮助用户低成本建立信任、提升转化。
 
 ### ✨ 核心特性
 
@@ -47,7 +47,7 @@
 ## 📁 项目结构
 
 ```
-KudosWall/
+EchoWall/
 ├── 📂 backend/              # NestJS 后端服务
 │   ├── src/
 │   │   ├── adapters/        # 平台适配器 (GitHub, ProductHunt...)
@@ -75,7 +75,7 @@ KudosWall/
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/yaolinhui/kudoswall.git
+git clone https://github.com/yaolinhui/echowall.git
 cd kudoswall
 
 # 2. 配置环境变量
@@ -190,6 +190,8 @@ make test
 
 MIT License © 2026 [yaolinhui](https://github.com/yaolinhui)
 
+> 原名 KudosWall，为避免名称冲突现更名为 EchoWall
+
 详见 [LICENSE](./LICENSE) 文件。
 
 ---
@@ -213,7 +215,7 @@ MIT License © 2026 [yaolinhui](https://github.com/yaolinhui)
 
 ## 📮 联系方式
 
-- 问题反馈: [GitHub Issues](https://github.com/yaolinhui/kudoswall/issues)
+- 问题反馈: [GitHub Issues](https://github.com/yaolinhui/echowall/issues)
 - 功能建议: 请使用 GitHub Discussions
 
 ---

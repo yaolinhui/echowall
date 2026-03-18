@@ -1,4 +1,4 @@
-# KudosWall 快速开始（无需 Docker）
+# EchoWall 快速开始（无需 Docker）
 
 > 适合没有安装 Docker 的 Windows/macOS/Linux 用户
 
