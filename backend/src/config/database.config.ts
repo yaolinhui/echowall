@@ -9,5 +9,5 @@ export default registerAs('database', () => ({
   database: process.env.DB_NAME || 'echowall',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   synchronize: process.env.NODE_ENV !== 'production',
-  logging: process.env.NODE_ENV === 'development',
+  logging: false,
 }));
