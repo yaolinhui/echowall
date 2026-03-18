@@ -12,7 +12,6 @@ export * from './services/metrics.service';
 export * from './services/task-scheduler.service';
 
 // Processors
-export * from './processors/fetch.processor';
 export * from './processors/analysis.processor';
 export * from './processors/notification.processor';
 export * from './processors/dlq.processor';
