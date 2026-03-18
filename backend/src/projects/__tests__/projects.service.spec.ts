@@ -54,6 +54,8 @@ describe('ProjectsService', () => {
 
   const mockUserRepository = {
     findOne: jest.fn().mockResolvedValue(mockUser),
+    create: jest.fn().mockReturnValue(mockUser),
+    save: jest.fn().mockResolvedValue(mockUser),
   };
 
   beforeEach(async () => {
@@ -99,12 +101,38 @@ describe('ProjectsService', () => {
       expect(result).toEqual(mockProject);
     });
 
-    it('should throw NotFoundException when user not found', async () => {
+    it('should create default user when user not found', async () => {
       mockUserRepository.findOne.mockResolvedValue(null);
+      mockUserRepository.create.mockReturnValue(mockUser);
+      mockUserRepository.save.mockResolvedValue(mockUser);
 
-      await expect(service.create(createProjectDto)).rejects.toThrow(
-        NotFoundException,
-      );
+      const result = await service.create(createProjectDto);
+
+      expect(userRepository.create).toHaveBeenCalledWith({
+        id: createProjectDto.userId,
+        email: expect.any(String),
+        password: 'default-password',
+        name: 'Default User',
+      });
+      expect(userRepository.save).toHaveBeenCalled();
+      expect(result).toEqual(mockProject);
+    });
+
+    it('should create default user when userId not provided', async () => {
+      const dtoWithoutUserId = { ...createProjectDto, userId: undefined };
+      mockUserRepository.findOne.mockResolvedValue(null);
+      mockUserRepository.create.mockReturnValue(mockUser);
+      mockUserRepository.save.mockResolvedValue(mockUser);
+
+      const result = await service.create(dtoWithoutUserId);
+
+      expect(userRepository.create).toHaveBeenCalledWith({
+        id: '00000000-0000-0000-0000-000000000001',
+        email: expect.any(String),
+        password: 'default-password',
+        name: 'Default User',
+      });
+      expect(result).toEqual(mockProject);
     });
   });
 

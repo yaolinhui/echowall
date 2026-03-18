@@ -16,17 +16,22 @@ export class ProjectsService {
   ) {}
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
-    // 验证用户是否存在
-    const user = await this.userRepository.findOne({
-      where: { id: createProjectDto.userId },
-    });
+    // 确保用户存在，不存在则创建默认用户
+    const userId = createProjectDto.userId || '00000000-0000-0000-0000-000000000001';
+    
+    let user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
-      throw new NotFoundException(
-        `User with ID ${createProjectDto.userId} not found`,
-      );
+      user = this.userRepository.create({
+        id: userId,
+        email: `user-${userId.slice(0, 8)}@example.com`,
+        password: 'default-password',
+        name: 'Default User',
+      });
+      await this.userRepository.save(user);
     }
 
-    const project = this.projectRepository.create(createProjectDto);
+    const projectData = { ...createProjectDto, userId };
+    const project = this.projectRepository.create(projectData);
     return this.projectRepository.save(project);
   }
 

@@ -2,7 +2,7 @@ import { IsString, IsOptional, IsUUID, IsObject, IsEnum, IsBoolean } from 'class
 import type { PlatformType } from '../entities/source.entity';
 
 export class CreateSourceDto {
-  @IsEnum(['github', 'producthunt', 'twitter', 'zhihu', 'xiaohongshu'])
+  @IsEnum(['github', 'producthunt', 'twitter', 'zhihu', 'xiaohongshu', 'chromewebstore'])
   platform: PlatformType;
 
   @IsString()

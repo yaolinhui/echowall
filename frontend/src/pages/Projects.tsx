@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, ExternalLink, Settings, Trash2 } from 'lucide-react';
+import { Plus, ExternalLink, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projectsApi } from '../services/api';
 import type { Project } from '../types';
@@ -76,20 +76,19 @@ export function Projects() {
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <div key={project.id} className="bg-white rounded-lg shadow-sm">
+          <Link
+            key={project.id}
+            to={`/projects/${project.id}`}
+            className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer block"
+          >
             <div className="p-4">
               <div className="flex items-start justify-between">
                 <h3 className="text-lg font-medium text-gray-900">{project.name}</h3>
-                <div className="flex space-x-2">
-                  <Link
-                    to={`/projects/${project.id}`}
-                    className="p-1 text-gray-400 hover:text-gray-600"
-                  >
-                    <Settings className="w-4 h-4" />
-                  </Link>
+                <div className="flex space-x-2" onClick={(e) => e.preventDefault()}>
                   <button
-                    onClick={() => handleDelete(project.id)}
+                    onClick={(e) => { e.preventDefault(); handleDelete(project.id); }}
                     className="p-1 text-gray-400 hover:text-red-600"
+                    title="Delete project"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -97,15 +96,13 @@ export function Projects() {
               </div>
               <p className="mt-1 text-sm text-gray-500 line-clamp-2">{project.description}</p>
               {project.website && (
-                <a
-                  href={project.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center mt-2 text-sm text-primary-600 hover:text-primary-700"
+                <div
+                  className="inline-flex items-center mt-2 text-sm text-primary-600 hover:text-primary-700 truncate max-w-full"
+                  onClick={(e) => e.preventDefault()}
                 >
-                  <ExternalLink className="w-3 h-3 mr-1" />
-                  Website
-                </a>
+                  <ExternalLink className="w-3 h-3 mr-1 flex-shrink-0" />
+                  <span className="truncate">{new URL(project.website).hostname}</span>
+                </div>
               )}
             </div>
             <div className="px-4 py-3 bg-gray-50 rounded-b-lg">
@@ -114,7 +111,7 @@ export function Projects() {
                 <span>{project.mentionsCount || 0} mentions</span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

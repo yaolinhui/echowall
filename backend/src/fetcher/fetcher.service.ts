@@ -1,7 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Inject, forwardRef } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import type { Queue } from 'bull';
 import { SourcesService } from '../sources/sources.service';
+import { PlatformType, Source } from '../sources/entities/source.entity';
 
 @Injectable()
 export class FetcherService {
@@ -10,6 +11,7 @@ export class FetcherService {
   constructor(
     @InjectQueue('fetcher')
     private fetcherQueue: Queue,
+    @Inject(forwardRef(() => SourcesService))
     private sourcesService: SourcesService,
   ) {}
 
@@ -29,11 +31,14 @@ export class FetcherService {
   }
 
   async scheduleAllActiveSources(): Promise<void> {
-    // 获取所有活跃的 GitHub 和 ProductHunt 源
-    const githubSources = await this.sourcesService.findActiveByPlatform('github');
-    const phSources = await this.sourcesService.findActiveByPlatform('producthunt');
+    // 获取所有活跃的数据源
+    const platforms: PlatformType[] = ['github', 'producthunt', 'chromewebstore'];
+    const allSources: Source[] = [];
     
-    const allSources = [...githubSources, ...phSources];
+    for (const platform of platforms) {
+      const sources = await this.sourcesService.findActiveByPlatform(platform);
+      allSources.push(...sources);
+    }
     
     for (const source of allSources) {
       await this.scheduleFetch(source.id);

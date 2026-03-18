@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Project } from '../../projects/entities/project.entity';
 
-export type PlatformType = 'github' | 'producthunt' | 'twitter' | 'zhihu' | 'xiaohongshu';
+export type PlatformType = 'github' | 'producthunt' | 'twitter' | 'zhihu' | 'xiaohongshu' | 'chromewebstore';
 
 @Entity('sources')
 export class Source {

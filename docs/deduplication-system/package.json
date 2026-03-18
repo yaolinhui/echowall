@@ -1,0 +1,38 @@
+{
+  "name": "cross-platform-deduplication",
+  "version": "1.0.0",
+  "description": "Cross-platform social content deduplication system",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "dev": "ts-node src/example.ts"
+  },
+  "dependencies": {
+    "@qdrant/js-client-rest": "^1.7.0",
+    "@types/node": "^20.0.0",
+    "bullmq": "^4.0.0",
+    "ioredis": "^5.3.0",
+    "murmurhash3js": "^3.0.1",
+    "pg": "^8.11.0",
+    "transformers": "^3.0.0",
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "@types/pg": "^8.10.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "ts-node": "^10.9.0"
+  },
+  "keywords": [
+    "deduplication",
+    "simhash",
+    "minhash",
+    "vector-search",
+    "near-duplicate-detection"
+  ],
+  "license": "MIT"
+}

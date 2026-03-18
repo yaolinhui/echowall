@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { BullModule } from '@nestjs/bull';
 import { FetcherService } from './fetcher.service';
 import { FetcherProcessor } from './fetcher.processor';
@@ -11,7 +11,7 @@ import { AdaptersModule } from '../adapters/adapters.module';
     BullModule.registerQueue({
       name: 'fetcher',
     }),
-    SourcesModule,
+    forwardRef(() => SourcesModule),
     MentionsModule,
     AdaptersModule,
   ],

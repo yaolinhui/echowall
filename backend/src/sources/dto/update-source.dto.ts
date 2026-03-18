@@ -3,7 +3,7 @@ import type { PlatformType } from '../entities/source.entity';
 
 export class UpdateSourceDto {
   @IsOptional()
-  @IsEnum(['github', 'producthunt', 'twitter', 'zhihu', 'xiaohongshu'])
+  @IsEnum(['github', 'producthunt', 'twitter', 'zhihu', 'xiaohongshu', 'chromewebstore'])
   platform?: PlatformType;
 
   @IsOptional()

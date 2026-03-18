@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { BaseAdapter } from './base.adapter';
 import { GithubAdapter } from './github.adapter';
 import { ProductHuntAdapter } from './producthunt.adapter';
+import { ChromeWebStoreAdapter } from './chromewebstore.adapter';
 
 @Injectable()
 export class AdaptersService {
@@ -10,9 +11,11 @@ export class AdaptersService {
   constructor(
     private githubAdapter: GithubAdapter,
     private productHuntAdapter: ProductHuntAdapter,
+    private chromeWebStoreAdapter: ChromeWebStoreAdapter,
   ) {
     this.registerAdapter(githubAdapter);
     this.registerAdapter(productHuntAdapter);
+    this.registerAdapter(chromeWebStoreAdapter);
   }
 
   private registerAdapter(adapter: BaseAdapter): void {

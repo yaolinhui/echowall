@@ -1,15 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Inject, forwardRef } from '@nestjs/common';
 import { SourcesService } from './sources.service';
+import { FetcherService } from '../fetcher/fetcher.service';
 import { CreateSourceDto } from './dto/create-source.dto';
 import { UpdateSourceDto } from './dto/update-source.dto';
 
 @Controller('sources')
 export class SourcesController {
-  constructor(private readonly sourcesService: SourcesService) {}
+  constructor(
+    private readonly sourcesService: SourcesService,
+    @Inject(forwardRef(() => FetcherService))
+    private readonly fetcherService: FetcherService,
+  ) {}
 
   @Post()
-  create(@Body() createSourceDto: CreateSourceDto) {
-    return this.sourcesService.create(createSourceDto);
+  async create(@Body() createSourceDto: CreateSourceDto) {
+    const source = await this.sourcesService.create(createSourceDto);
+    // 自动触发抓取任务
+    await this.fetcherService.scheduleFetch(source.id);
+    return source;
   }
 
   @Get()

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EchoWall Widget v2.0 - 完美嵌入方案演示</title>
+  
+  <!-- 预连接优化 -->
+  <link rel="preconnect" href="https://cdn.echowall.io">
+  <link rel="dns-prefetch" href="https://api.echowall.io">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f5f5f5;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    
+    .header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    .section {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .section h2 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section h2 span {
+      font-size: 1.2em;
+    }
+    
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .demo-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .demo-card h3 {
+      font-size: 1.1em;
+      margin-bottom: 15px;
+      color: #475569;
+    }
+    
+    .demo-card .widget-container {
+      min-height: 200px;
+      background: white;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    
+    /* 测试宿主页面样式干扰 */
+    .host-styles {
+      color: red !important;
+      font-size: 50px !important;
+    }
+    
+    .code-block {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+    
+    .code-block .comment { color: #64748b; }
+    .code-block .keyword { color: #c084fc; }
+    .code-block .string { color: #4ade80; }
+    .code-block .tag { color: #f472b6; }
+    .code-block .attr { color: #60a5fa; }
+    
+    .feature-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    
+    .feature-list li::before {
+      content: '✓';
+      color: #10b981;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+    }
+    
+    .stat-value {
+      font-size: 2em;
+      font-weight: bold;
+      color: #0ea5e9;
+    }
+    
+    .stat-label {
+      font-size: 0.9em;
+      color: #64748b;
+      margin-top: 5px;
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+    }
+    
+    .tab {
+      padding: 8px 16px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #64748b;
+      font-size: 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    
+    .tab:hover {
+      background: #f1f5f9;
+    }
+    
+    .tab.active {
+      background: #0ea5e9;
+      color: white;
+    }
+    
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+      
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>🌟 EchoWall Widget v2.0</h1>
+    <p>完美的第三方 Widget 嵌入方案 - Shadow DOM + iframe 混合架构</p>
+  </header>
+
+  <div class="container">
+    <!-- 特性概览 -->
+    <section class="section">
+      <h2><span>🚀</span> 核心特性</h2>
+      <ul class="feature-list">
+        <li>Shadow DOM 样式隔离</li>
+        <li>iframe JavaScript 沙箱</li>
+        <li>Intersection Observer 懒加载</li>
+        <li>自动降级策略</li>
+        <li>postMessage 安全通信</li>
+        <li>响应式设计</li>
+        <li>性能优化</li>
+        <li>XSS 防护</li>
+      </ul>
+      
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-value">~2KB</div>
+          <div class="stat-label">Loader 大小</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">&lt;1s</div>
+          <div class="stat-label">首屏加载</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">样式隔离</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">A+</div>
+          <div class="stat-label">安全评级</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 嵌入代码示例 -->
+    <section class="section">
+      <h2><span>📦</span> 嵌入代码</h2>
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('auto')">自动初始化</button>
+        <button class="tab" onclick="showTab('manual')">手动初始化</button>
+        <button class="tab" onclick="showTab('lazy')">懒加载</button>
+      </div>
+      
+      <div id="tab-auto" class="tab-content">
+        <p>最简单的嵌入方式，通过 data 属性配置：</p>
+        <pre class="code-block"><span class="comment">&lt;!-- 1. 添加容器 --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="string">"my-widget"</span>
+  <span class="attr">data-echowall</span>=<span class="string">"YOUR_PROJECT_ID"</span>
+  <span class="attr">data-theme</span>=<span class="string">"light"</span>
+  <span class="attr">data-layout</span>=<span class="string">"carousel"</span>
+  <span class="attr">data-max-items</span>=<span class="string">"10"</span>
+  <span class="attr">data-lazy-load</span>=<span class="string">"true"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="comment">&lt;!-- 2. 引入脚本 --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://cdn.echowall.io/embed.js"</span> <span class="attr">async</span><span class="tag">&gt;&lt;/script&gt;</span></pre>
+      </div>
+      
+      <div id="tab-manual" class="tab-content" style="display:none">
+        <p>通过 JavaScript API 完全控制：</p>
+        <pre class="code-block"><span class="comment">&lt;!-- 添加容器 --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="string">"my-widget"</span><span class="tag">&gt;&lt;/div&gt;</span>
+
+<span class="comment">&lt;!-- 引入并初始化 --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://cdn.echowall.io/embed.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;script&gt;</span>
+  <span class="keyword">const</span> widget = EchoWall.init(<span class="string">'my-widget'</span>, <span class="string">'YOUR_PROJECT_ID'</span>, {
+    theme: <span class="string">'dark'</span>,
+    layout: <span class="string">'grid'</span>,
+    maxItems: 6,
+    lazyLoad: <span class="keyword">false</span>,
+    isolation: <span class="string">'hybrid'</span>  <span class="comment">// 'shadow' | 'iframe' | 'hybrid'</span>
+  });
+<span class="tag">&lt;/script&gt;</span></pre>
+      </div>
+      
+      <div id="tab-lazy" class="tab-content" style="display:none">
+        <p>多种懒加载策略：</p>
+        <pre class="code-block"><span class="comment">// 1. 视口内加载（默认）</span>
+EchoWall.init(<span class="string">'widget-1'</span>, <span class="string">'PROJECT_ID'</span>, {
+  lazyLoad: <span class="keyword">true</span>  <span class="comment">// 进入视口时加载</span>
+});
+
+<span class="comment">// 2. 交互触发加载</span>
+EchoWall.init(<span class="string">'widget-2'</span>, <span class="string">'PROJECT_ID'</span>, {
+  lazyLoad: <span class="keyword">true</span>,
+  <span class="comment">// 鼠标悬停或点击时提前加载</span>
+});
+
+<span class="comment">// 3. 手动控制加载时机</span>
+<span class="keyword">const</span> widget = <span class="keyword">new</span> EchoWall.Widget(<span class="string">'widget-3'</span>, <span class="string">'PROJECT_ID'</span>, {
+  lazyLoad: <span class="keyword">false</span>
+});
+
+<span class="comment">// 稍后在需要时加载</span>
+document.getElementById(<span class="string">'load-btn'</span>).addEventListener(<span class="string">'click'</span>, () => {
+  widget.init();
+});</pre>
+      </div>
+    </section>
+
+    <!-- 演示区域 -->
+    <section class="section">
+      <h2><span>🎨</span> 实时演示</h2>
+      <p>以下演示展示了不同配置和布局的 Widget。注意它们完全隔离，不受宿主页面样式影响（即使宿主页面设置了红色大字体）。</p>
+      
+      <div class="demo-grid">
+        <!-- 轮播演示 -->
+        <div class="demo-card">
+          <h3>🎠 轮播布局 (Carousel)</h3>
+          <div id="demo-carousel" class="widget-container host-styles" data-echowall="demo" data-layout="carousel" data-theme="light"></div>
+        </div>
+        
+        <!-- 网格演示 -->
+        <div class="demo-card">
+          <h3>🔲 网格布局 (Grid)</h3>
+          <div id="demo-grid" class="widget-container host-styles" data-echowall="demo" data-layout="grid" data-max-items="4"></div>
+        </div>
+        
+        <!-- 列表演示 -->
+        <div class="demo-card">
+          <h3>📋 列表布局 (List)</h3>
+          <div id="demo-list" class="widget-container host-styles" data-echowall="demo" data-layout="list" data-max-items="3"></div>
+        </div>
+        
+        <!-- 暗黑主题 -->
+        <div class="demo-card" style="background: #1e293b;">
+          <h3 style="color: white;">🌙 暗黑主题 (Dark)</h3>
+          <div id="demo-dark" class="widget-container" data-echowall="demo" data-theme="dark" data-layout="carousel"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 隔离测试 -->
+    <section class="section">
+      <h2><span>🛡️</span> 隔离性测试</h2>
+      <p>以下元素应用了红色超大字体的宿主样式。如果 Widget 没有正确隔离，内部文本也会变成红色。</p>
+      
+      <div class="host-styles" style="padding: 20px; background: #fef2f2; border-radius: 8px;">
+        <p>这是一段受宿主样式影响的文本（应该是红色大字）</p>
+      </div>
+      
+      <div style="margin-top: 20px;">
+        <div id="isolation-test" data-echowall="demo" data-layout="list" data-max-items="2"></div>
+      </div>
+    </section>
+
+    <!-- API 文档 -->
+    <section class="section">
+      <h2><span>📚</span> API 文档</h2>
+      
+      <h3 style="margin: 20px 0 10px; color: #475569;">配置选项</h3>
+      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+        <thead>
+          <tr style="background: #f1f5f9;">
+            <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">选项</th>
+            <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">类型</th>
+            <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">默认值</th>
+            <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>theme</code></td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">string</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">'light'</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">主题: 'light' | 'dark'</td>
+          </tr>
+          <tr style="background: #f8fafc;">
+            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>layout</code></td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">string</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">'carousel'</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">布局: 'carousel' | 'grid' | 'list'</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>isolation</code></td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">string</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">'hybrid'</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">隔离模式: 'shadow' | 'iframe' | 'hybrid'</td>
+          </tr>
+          <tr style="background: #f8fafc;">
+            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>lazyLoad</code></td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">boolean</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">true</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">是否启用懒加载</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>maxItems</code></td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">number</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">10</td>
+            <td style="padding: 12px; border: 1px solid #e2e8f0;">最大显示条数</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <h3 style="margin: 30px 0 10px; color: #475569;">实例方法</h3>
+      <pre class="code-block"><span class="comment">// 刷新数据</span>
+widget.refresh();
+
+<span class="comment">// 销毁实例</span>
+widget.destroy();
+
+<span class="comment">// 监听事件</span>
+document.getElementById(<span class="string">'my-widget'</span>).addEventListener(<span class="string">'echowall:load'</span>, (e) => {
+  console.log(<span class="string">'Widget loaded!'</span>, e.detail);
+});</pre>
+    </section>
+  </div>
+
+  <!-- Widget Embed Script -->
+  <script src="src/embed.js"></script>
+  
+  <script>
+    // Tab 切换
+    function showTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+      
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tab).style.display = 'block';
+    }
+    
+    // 模拟数据 - 在实际项目中，这些数据会从 API 获取
+    const demoMentions = [
+      {
+        id: '1',
+        content: "This is an amazing product! It has completely transformed how I work. Highly recommend to everyone who values productivity.",
+        authorName: "Sarah Chen",
+        authorAvatar: "https://i.pravatar.cc/150?img=1",
+        platform: "twitter",
+        postedAt: new Date(Date.now() - 3600000).toISOString()
+      },
+      {
+        id: '2',
+        content: "Great work on the latest release. The new features are exactly what we needed for our team collaboration.",
+        authorName: "Alex Johnson",
+        authorAvatar: "https://i.pravatar.cc/150?img=2",
+        platform: "github",
+        postedAt: new Date(Date.now() - 7200000).toISOString()
+      },
+      {
+        id: '3',
+        content: "Finally found the perfect tool for my workflow. Thank you for building this! 🚀",
+        authorName: "Maria Garcia",
+        authorAvatar: "https://i.pravatar.cc/150?img=5",
+        platform: "producthunt",
+        postedAt: new Date(Date.now() - 86400000).toISOString()
+      },
+      {
+        id: '4',
+        content: "The attention to detail in this product is incredible. Every feature feels polished and well thought out.",
+        authorName: "David Kim",
+        authorAvatar: "https://i.pravatar.cc/150?img=8",
+        platform: "reddit",
+        postedAt: new Date(Date.now() - 172800000).toISOString()
+      }
+    ];
+    
+    // Mock API
+    const originalFetch = window.fetch;
+    window.fetch = function(url, options) {
+      if (url.includes('/api/widget/')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({
+            project: { name: 'Demo Project' },
+            mentions: demoMentions,
+            config: { theme: 'light', layout: 'carousel', maxItems: 10 }
+          })
+        });
+      }
+      return originalFetch(url, options);
+    };
+    
+    // 配置 CDN URL 为本地
+    EchoWall.configure({
+      cdnUrl: window.location.origin + '/widget',
+      apiUrl: window.location.origin
+    });
+  </script>
+</body>
+</html>

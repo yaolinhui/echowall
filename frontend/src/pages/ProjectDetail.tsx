@@ -16,12 +16,7 @@ export function ProjectDetail() {
   const [newSource, setNewSource] = useState<{
     platform: Source['platform'];
     name: string;
-    config: {
-      owner: string;
-      repo: string;
-      includeIssues: boolean;
-      includeComments: boolean;
-    };
+    config: Record<string, any>;
   }>({
     platform: 'github',
     name: '',
@@ -91,6 +86,7 @@ export function ProjectDetail() {
       twitter: '🐦',
       zhihu: '📚',
       xiaohongshu: '📝',
+      chromewebstore: '🌐',
     };
     return icons[platform] || '📎';
   };
@@ -223,6 +219,7 @@ export function ProjectDetail() {
             >
               <option value="github">GitHub</option>
               <option value="producthunt">Product Hunt</option>
+              <option value="chromewebstore">Chrome Web Store</option>
             </select>
           </div>
           <div>
@@ -242,7 +239,7 @@ export function ProjectDetail() {
                 <label className="block text-sm font-medium text-gray-700">Owner</label>
                 <input
                   type="text"
-                  value={newSource.config.owner}
+                  value={newSource.config.owner || ''}
                   onChange={(e) =>
                     setNewSource({
                       ...newSource,
@@ -258,7 +255,7 @@ export function ProjectDetail() {
                 <label className="block text-sm font-medium text-gray-700">Repository</label>
                 <input
                   type="text"
-                  value={newSource.config.repo}
+                  value={newSource.config.repo || ''}
                   onChange={(e) =>
                     setNewSource({
                       ...newSource,
@@ -269,6 +266,29 @@ export function ProjectDetail() {
                   placeholder="e.g., react"
                   required
                 />
+              </div>
+            </>
+          )}
+          {newSource.platform === 'chromewebstore' && (
+            <>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Extension ID</label>
+                <input
+                  type="text"
+                  value={newSource.config.extensionId || ''}
+                  onChange={(e) =>
+                    setNewSource({
+                      ...newSource,
+                      config: { ...newSource.config, extensionId: e.target.value },
+                    })
+                  }
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+                  placeholder="e.g., chphlpgkkbolifaimnlloiipkdnihall"
+                  required
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Found in the Chrome Web Store URL: /detail/[name]/<strong>extension-id</strong>
+                </p>
               </div>
             </>
           )}

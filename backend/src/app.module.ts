@@ -12,6 +12,7 @@ import { SourcesModule } from './sources/sources.module';
 import { MentionsModule } from './mentions/mentions.module';
 import { WidgetModule } from './widget/widget.module';
 import { FetcherModule } from './fetcher/fetcher.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { FetcherModule } from './fetcher/fetcher.module';
     MentionsModule,
     WidgetModule,
     FetcherModule,
+    SchedulerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

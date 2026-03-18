@@ -26,7 +26,7 @@ export interface Project {
 
 export interface Source {
   id: string;
-  platform: 'github' | 'producthunt' | 'twitter' | 'zhihu' | 'xiaohongshu';
+  platform: 'github' | 'producthunt' | 'twitter' | 'zhihu' | 'xiaohongshu' | 'chromewebstore';
   name: string;
   config: Record<string, any>;
   isActive: boolean;
