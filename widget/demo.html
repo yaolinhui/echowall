@@ -195,6 +195,179 @@
       color: white;
     }
     
+    /* Tab content visibility */
+    .tab-content {
+      display: block;
+    }
+    
+    .tab-content.hidden {
+      display: none;
+    }
+    
+    /* API section titles */
+    .api-section-title {
+      margin: 20px 0 10px;
+      color: #475569;
+    }
+    
+    .api-section-title-alt {
+      margin-top: 30px;
+    }
+    
+    /* API Table styles */
+    .api-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    
+    .api-table thead tr {
+      background: #f1f5f9;
+    }
+    
+    .api-table th,
+    .api-table td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .api-table-alt {
+      background: #f8fafc;
+    }
+    
+    .api-table code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    
+    /* Dark theme card */
+    .demo-card.dark {
+      background: #1e293b;
+    }
+    
+    .demo-card.dark h3 {
+      color: white;
+    }
+    
+    /* Isolation test box */
+    .isolation-box {
+      padding: 20px;
+      background: #fef2f2;
+      border-radius: 8px;
+    }
+    
+    /* Margin utilities */
+    .mt-20 {
+      margin-top: 20px;
+    }
+    
+    /* API Documentation styles */
+    .api-docs h3 {
+      margin: 20px 0 10px;
+      color: #475569;
+    }
+    
+    .api-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    
+    .api-table th,
+    .api-table td {
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+    
+    .api-table th {
+      background: #f8fafc;
+      font-weight: 600;
+    }
+    
+    .api-table code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    
+    .option-default {
+      color: #0ea5e9;
+      font-weight: 500;
+    }
+    
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .method-card {
+      padding: 15px;
+      background: #f8fafc;
+      border-radius: 8px;
+      border-left: 4px solid #0ea5e9;
+    }
+    
+    .method-card h4 {
+      margin-bottom: 8px;
+      color: #1e293b;
+    }
+    
+    .method-card code {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    
+    .method-card p {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 8px;
+    }
+    
+    .event-list {
+      list-style: none;
+      margin-top: 15px;
+    }
+    
+    .event-list li {
+      padding: 10px;
+      background: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .event-list strong {
+      color: #0ea5e9;
+    }
+    
+    .event-list code {
+      background: #1e293b;
+      color: #4ade80;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px;
+      color: #64748b;
+    }
+    
+    .footer a {
+      color: #0ea5e9;
+      text-decoration: none;
+    }
+    
     @media (max-width: 768px) {
       .header h1 {
         font-size: 1.8em;
@@ -271,7 +444,7 @@
 <span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://cdn.echowall.io/embed.js"</span> <span class="attr">async</span><span class="tag">&gt;&lt;/script&gt;</span></pre>
       </div>
       
-      <div id="tab-manual" class="tab-content" style="display:none">
+      <div id="tab-manual" class="tab-content hidden">
         <p>通过 JavaScript API 完全控制：</p>
         <pre class="code-block"><span class="comment">&lt;!-- 添加容器 --&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">id</span>=<span class="string">"my-widget"</span><span class="tag">&gt;&lt;/div&gt;</span>
@@ -289,7 +462,7 @@
 <span class="tag">&lt;/script&gt;</span></pre>
       </div>
       
-      <div id="tab-lazy" class="tab-content" style="display:none">
+      <div id="tab-lazy" class="tab-content hidden">
         <p>多种懒加载策略：</p>
         <pre class="code-block"><span class="comment">// 1. 视口内加载（默认）</span>
 EchoWall.init(<span class="string">'widget-1'</span>, <span class="string">'PROJECT_ID'</span>, {
@@ -339,8 +512,8 @@ document.getElementById(<span class="string">'load-btn'</span>).addEventListener
         </div>
         
         <!-- 暗黑主题 -->
-        <div class="demo-card" style="background: #1e293b;">
-          <h3 style="color: white;">🌙 暗黑主题 (Dark)</h3>
+        <div class="demo-card dark">
+          <h3>🌙 暗黑主题 (Dark)</h3>
           <div id="demo-dark" class="widget-container" data-echowall="demo" data-theme="dark" data-layout="carousel"></div>
         </div>
       </div>
@@ -351,11 +524,11 @@ document.getElementById(<span class="string">'load-btn'</span>).addEventListener
       <h2><span>🛡️</span> 隔离性测试</h2>
       <p>以下元素应用了红色超大字体的宿主样式。如果 Widget 没有正确隔离，内部文本也会变成红色。</p>
       
-      <div class="host-styles" style="padding: 20px; background: #fef2f2; border-radius: 8px;">
+      <div class="host-styles isolation-box">
         <p>这是一段受宿主样式影响的文本（应该是红色大字）</p>
       </div>
       
-      <div style="margin-top: 20px;">
+      <div class="mt-20">
         <div id="isolation-test" data-echowall="demo" data-layout="list" data-max-items="2"></div>
       </div>
     </section>
@@ -364,51 +537,51 @@ document.getElementById(<span class="string">'load-btn'</span>).addEventListener
     <section class="section">
       <h2><span>📚</span> API 文档</h2>
       
-      <h3 style="margin: 20px 0 10px; color: #475569;">配置选项</h3>
-      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+      <h3 class="api-section-title">配置选项</h3>
+      <table class="api-table">
         <thead>
-          <tr style="background: #f1f5f9;">
-            <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">选项</th>
-            <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">类型</th>
-            <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">默认值</th>
-            <th style="padding: 12px; text-align: left; border: 1px solid #e2e8f0;">说明</th>
+          <tr>
+            <th>选项</th>
+            <th>类型</th>
+            <th>默认值</th>
+            <th>说明</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>theme</code></td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">string</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">'light'</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">主题: 'light' | 'dark'</td>
+            <td><code>theme</code></td>
+            <td>string</td>
+            <td>'light'</td>
+            <td>主题: 'light' | 'dark'</td>
           </tr>
-          <tr style="background: #f8fafc;">
-            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>layout</code></td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">string</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">'carousel'</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">布局: 'carousel' | 'grid' | 'list'</td>
-          </tr>
-          <tr>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>isolation</code></td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">string</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">'hybrid'</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">隔离模式: 'shadow' | 'iframe' | 'hybrid'</td>
-          </tr>
-          <tr style="background: #f8fafc;">
-            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>lazyLoad</code></td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">boolean</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">true</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">是否启用懒加载</td>
+          <tr class="api-table-alt">
+            <td><code>layout</code></td>
+            <td>string</td>
+            <td>'carousel'</td>
+            <td>布局: 'carousel' | 'grid' | 'list'</td>
           </tr>
           <tr>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;"><code>maxItems</code></td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">number</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">10</td>
-            <td style="padding: 12px; border: 1px solid #e2e8f0;">最大显示条数</td>
+            <td><code>isolation</code></td>
+            <td>string</td>
+            <td>'hybrid'</td>
+            <td>隔离模式: 'shadow' | 'iframe' | 'hybrid'</td>
+          </tr>
+          <tr class="api-table-alt">
+            <td><code>lazyLoad</code></td>
+            <td>boolean</td>
+            <td>true</td>
+            <td>是否启用懒加载</td>
+          </tr>
+          <tr>
+            <td><code>maxItems</code></td>
+            <td>number</td>
+            <td>10</td>
+            <td>最大显示条数</td>
           </tr>
         </tbody>
       </table>
       
-      <h3 style="margin: 30px 0 10px; color: #475569;">实例方法</h3>
+      <h3 class="api-section-title api-section-title-alt">实例方法</h3>
       <pre class="code-block"><span class="comment">// 刷新数据</span>
 widget.refresh();
 
@@ -429,10 +602,10 @@ document.getElementById(<span class="string">'my-widget'</span>).addEventListene
     // Tab 切换
     function showTab(tab) {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
       
       event.target.classList.add('active');
-      document.getElementById('tab-' + tab).style.display = 'block';
+      document.getElementById('tab-' + tab).classList.remove('hidden');
     }
     
     // 模拟数据 - 在实际项目中，这些数据会从 API 获取

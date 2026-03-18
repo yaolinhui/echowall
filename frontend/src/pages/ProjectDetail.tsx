@@ -176,6 +176,7 @@ export function ProjectDetail() {
                   value={project.widgetConfig?.layout || 'carousel'}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
                   disabled
+                  title="Widget layout style"
                 >
                   <option value="carousel">Carousel</option>
                   <option value="grid">Grid</option>
@@ -188,6 +189,7 @@ export function ProjectDetail() {
                   value={project.widgetConfig?.theme || 'light'}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
                   disabled
+                  title="Widget color theme"
                 >
                   <option value="light">Light</option>
                   <option value="dark">Dark</option>
@@ -216,6 +218,7 @@ export function ProjectDetail() {
                 setNewSource({ ...newSource, platform: e.target.value as Source['platform'] })
               }
               className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
+              title="Select platform"
             >
               <option value="github">GitHub</option>
               <option value="producthunt">Product Hunt</option>
