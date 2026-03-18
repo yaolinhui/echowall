@@ -12,7 +12,7 @@ import { SourcesModule } from './sources/sources.module';
 import { MentionsModule } from './mentions/mentions.module';
 import { WidgetModule } from './widget/widget.module';
 import { FetcherModule } from './fetcher/fetcher.module';
-import { SchedulerModule } from './scheduler/scheduler.module';
+// import { SchedulerModule } from './scheduler/scheduler.module';
 
 @Module({
   imports: [
@@ -79,7 +79,7 @@ import { SchedulerModule } from './scheduler/scheduler.module';
     MentionsModule,
     WidgetModule,
     FetcherModule,
-    SchedulerModule,
+    // SchedulerModule,  // 临时禁用，等有精力再修复
   ],
   controllers: [AppController],
   providers: [AppService],
