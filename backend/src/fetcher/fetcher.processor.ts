@@ -1,6 +1,6 @@
 import { Processor, Process, OnQueueFailed } from '@nestjs/bull';
 import { Logger } from '@nestjs/common';
-import { Job } from 'bull';
+import type { Job } from 'bull';
 import { SourcesService } from '../sources/sources.service';
 import { MentionsService } from '../mentions/mentions.service';
 import { AdaptersService } from '../adapters/adapters.service';

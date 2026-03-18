@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsUUID, IsObject, IsEnum, IsBoolean } from 'class-validator';
-import { PlatformType } from '../entities/source.entity';
+import type { PlatformType } from '../entities/source.entity';
 
 export class CreateSourceDto {
   @IsEnum(['github', 'producthunt', 'twitter', 'zhihu', 'xiaohongshu'])

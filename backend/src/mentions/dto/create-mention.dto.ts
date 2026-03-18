@@ -6,7 +6,7 @@ import {
   IsNumber,
   IsDate,
 } from 'class-validator';
-import { SentimentType, MentionStatus } from '../entities/mention.entity';
+import type { SentimentType, MentionStatus } from '../entities/mention.entity';
 
 export class CreateMentionDto {
   @IsString()
@@ -20,7 +20,7 @@ export class CreateMentionDto {
 
   @IsOptional()
   @IsString()
-  rawContent?: string;
+  rawContent?: string | null;
 
   @IsOptional()
   @IsString()

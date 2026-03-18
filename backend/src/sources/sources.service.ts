@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Source } from './entities/source.entity';
+import { Source, PlatformType } from './entities/source.entity';
 import { CreateSourceDto } from './dto/create-source.dto';
 import { UpdateSourceDto } from './dto/update-source.dto';
 
@@ -40,7 +40,7 @@ export class SourcesService {
     });
   }
 
-  async findActiveByPlatform(platform: string): Promise<Source[]> {
+  async findActiveByPlatform(platform: PlatformType): Promise<Source[]> {
     return this.sourceRepository.find({
       where: { platform, isActive: true },
       relations: ['project'],

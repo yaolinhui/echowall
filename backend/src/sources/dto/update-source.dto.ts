@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsObject, IsEnum, IsBoolean } from 'class-validator';
-import { PlatformType } from '../entities/source.entity';
+import type { PlatformType } from '../entities/source.entity';
 
 export class UpdateSourceDto {
   @IsOptional()

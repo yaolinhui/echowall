@@ -27,7 +27,7 @@ export class Mention {
   content: string;
 
   @Column({ type: 'text', nullable: true })
-  rawContent: string;
+  rawContent: string | null;
 
   @Column({ nullable: true })
   authorName: string;

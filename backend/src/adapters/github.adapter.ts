@@ -92,7 +92,7 @@ export class GithubAdapter extends BaseAdapter {
       platform: this.platform,
       externalId: `github:issue:${issue.id}`,
       content: issue.body || issue.title,
-      rawContent: issue.body,
+      rawContent: issue.body || undefined,
       authorName: issue.user.login,
       authorAvatar: issue.user.avatar_url,
       authorUrl: issue.user.html_url,

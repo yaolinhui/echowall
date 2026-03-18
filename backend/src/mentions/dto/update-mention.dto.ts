@@ -1,5 +1,5 @@
 import { IsOptional, IsEnum, IsNumber } from 'class-validator';
-import { SentimentType, MentionStatus } from '../entities/mention.entity';
+import type { SentimentType, MentionStatus } from '../entities/mention.entity';
 
 export class UpdateMentionDto {
   @IsOptional()

@@ -2,7 +2,7 @@ export interface MentionData {
   platform: string;
   externalId: string;
   content: string;
-  rawContent?: string;
+  rawContent?: string | null;
   authorName?: string;
   authorAvatar?: string;
   authorUrl?: string;

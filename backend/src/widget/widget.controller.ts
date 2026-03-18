@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query, Res, Header } from '@nestjs/common';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { WidgetService } from './widget.service';
 
 @Controller('widget')
@@ -23,9 +23,9 @@ export class WidgetController {
   @Header('Cache-Control', 'public, max-age=3600')
   async getWidgetScript(
     @Param('projectId') projectId: string,
+    @Res() res: Response,
     @Query('theme') theme?: string,
     @Query('layout') layout?: string,
-    @Res() res: Response,
   ) {
     const data = await this.widgetService.getWidgetData(projectId);
     
