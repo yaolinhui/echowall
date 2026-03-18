@@ -31,6 +31,9 @@ import { DistributedLockService } from './distributed-lock.service';
 import { RetryStrategyService } from './retry-strategy.service';
 import { MetricsService } from './metrics.service';
 
+// 任务状态类型
+type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed' | 'paused';
+
 /**
  * 任务调度服务
  * 
@@ -522,6 +525,3 @@ export class TaskSchedulerService implements OnModuleInit {
     return keyParts.join(':');
   }
 }
-
-// 扩展 JobStatus 类型
-type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed' | 'paused';
