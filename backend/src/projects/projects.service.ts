@@ -13,7 +13,11 @@ export class ProjectsService {
   ) {}
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
-    const project = this.projectRepository.create(createProjectDto);
+    const projectData = {
+      ...createProjectDto,
+      userId: createProjectDto.userId || '00000000-0000-0000-0000-000000000001',
+    };
+    const project = this.projectRepository.create(projectData);
     return this.projectRepository.save(project);
   }
 

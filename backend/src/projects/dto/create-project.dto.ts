@@ -21,6 +21,7 @@ export class CreateProjectDto {
     autoPlay?: boolean;
   };
 
-  @IsUUID()
-  userId: string;
+  @IsOptional()
+  @IsString()
+  userId?: string;
 }
