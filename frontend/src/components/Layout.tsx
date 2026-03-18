@@ -20,7 +20,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="fixed inset-0 bg-gray-900/80" onClick={() => setSidebarOpen(false)} />
         <div className="fixed inset-y-0 left-0 w-64 bg-white">
           <div className="flex items-center justify-between p-4 border-b">
-            <span className="text-xl font-bold text-primary-600">KudosWall</span>
+            <span className="text-xl font-bold text-primary-600">EchoWall</span>
             <button onClick={() => setSidebarOpen(false)}>
               <X className="w-6 h-6" />
             </button>
@@ -49,7 +49,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
         <div className="flex flex-col flex-grow bg-white border-r">
           <div className="flex items-center h-16 px-6 border-b">
-            <span className="text-xl font-bold text-primary-600">KudosWall</span>
+            <span className="text-xl font-bold text-primary-600">EchoWall</span>
           </div>
           <nav className="flex-1 p-4 space-y-1">
             {navigation.map((item) => (
@@ -77,7 +77,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <button onClick={() => setSidebarOpen(true)} className="p-2 -m-2">
             <Menu className="w-6 h-6" />
           </button>
-          <span className="ml-4 text-lg font-bold text-primary-600">KudosWall</span>
+          <span className="ml-4 text-lg font-bold text-primary-600">EchoWall</span>
         </div>
 
         <main className="p-4 lg:p-8">{children}</main>

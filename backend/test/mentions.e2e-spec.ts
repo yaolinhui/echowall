@@ -200,9 +200,9 @@ describe('MentionsController (e2e)', () => {
         .delete(`/api/mentions/${mentionId}`)
         .expect(200);
 
-      // 软删除后应该还能查到，但 isDeleted 为 true
+      // 软删除后应该还能查到（使用includeDeleted=true），且 isDeleted 为 true
       const response = await request(app.getHttpServer())
-        .get(`/api/mentions/${mentionId}`);
+        .get(`/api/mentions/${mentionId}?includeDeleted=true`);
       expect(response.body.isDeleted).toBe(true);
     });
   });

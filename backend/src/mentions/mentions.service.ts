@@ -25,9 +25,13 @@ export class MentionsService {
     });
   }
 
-  async findOne(id: string): Promise<Mention> {
+  async findOne(id: string, includeDeleted: boolean = false): Promise<Mention> {
+    const where: any = { id };
+    if (!includeDeleted) {
+      where.isDeleted = false;
+    }
     const mention = await this.mentionRepository.findOne({
-      where: { id, isDeleted: false },
+      where,
       relations: ['project'],
     });
     if (!mention) {

@@ -151,7 +151,7 @@ describe('WidgetController (e2e)', () => {
         .expect(200);
 
       expect(response.body).toHaveProperty('code');
-      expect(response.body.code).toContain('kudoswall-widget');
+      expect(response.body.code).toContain('echowall-widget');
       expect(response.body.code).toContain(projectId);
       expect(response.body.code).toContain('script');
     });
@@ -164,7 +164,7 @@ describe('WidgetController (e2e)', () => {
         .expect(200)
         .expect('Content-Type', /javascript/);
 
-      expect(response.text).toContain('KudosWall');
+      expect(response.text).toContain('EchoWall');
       expect(response.text).toContain('mentions');
     });
 

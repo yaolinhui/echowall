@@ -1,7 +1,8 @@
-import { IsString, IsOptional, IsUUID, IsObject, IsBoolean } from 'class-validator';
+import { IsString, IsOptional, IsUUID, IsObject, IsBoolean, IsNotEmpty } from 'class-validator';
 
 export class CreateProjectDto {
   @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsOptional()
@@ -21,7 +22,7 @@ export class CreateProjectDto {
     autoPlay?: boolean;
   };
 
-  @IsOptional()
   @IsString()
-  userId?: string;
+  @IsNotEmpty()
+  userId: string;
 }

@@ -52,12 +52,12 @@ export class WidgetService {
   }
 
   generateEmbedCode(projectId: string): string {
-    return `<!-- KudosWall Widget -->
-<div id="kudoswall-widget" data-project-id="${projectId}"></div>
+    return `<!-- EchoWall Widget -->
+<div id="echowall-widget" data-echowall="${projectId}"></div>
 <script>
   (function() {
     var script = document.createElement('script');
-    script.src = 'https://cdn.kudoswall.io/widget.js';
+    script.src = 'https://cdn.echowall.io/widget.js';
     script.async = true;
     document.head.appendChild(script);
   })();

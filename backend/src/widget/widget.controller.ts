@@ -75,7 +75,7 @@ export class WidgetController {
       </div>
     \`).join('');
     
-    return \`<div class="kudoswall-\${config.layout}">\${items}</div>\`;
+    return \`<div class="echowall-\${config.layout}">\${items}</div>\`;
   }
   
   function initCarousel(container) {

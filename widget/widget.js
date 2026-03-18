@@ -13,7 +13,7 @@
   'use strict';
 
   const DEFAULT_CONFIG = {
-    apiUrl: 'https://api.echowall.io',
+    apiUrl: 'http://localhost:3000/api',
     theme: 'light',
     layout: 'carousel',
     maxItems: 10,

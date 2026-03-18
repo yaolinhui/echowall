@@ -29,8 +29,8 @@ export class MentionsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mentionsService.findOne(id);
+  findOne(@Param('id') id: string, @Query('includeDeleted') includeDeleted?: string) {
+    return this.mentionsService.findOne(id, includeDeleted === 'true');
   }
 
   @Patch(':id')

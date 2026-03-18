@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Project } from './entities/project.entity';
+import { User } from '../users/entities/user.entity';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 
@@ -10,14 +11,22 @@ export class ProjectsService {
   constructor(
     @InjectRepository(Project)
     private projectRepository: Repository<Project>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async create(createProjectDto: CreateProjectDto): Promise<Project> {
-    const projectData = {
-      ...createProjectDto,
-      userId: createProjectDto.userId || '00000000-0000-0000-0000-000000000001',
-    };
-    const project = this.projectRepository.create(projectData);
+    // 验证用户是否存在
+    const user = await this.userRepository.findOne({
+      where: { id: createProjectDto.userId },
+    });
+    if (!user) {
+      throw new NotFoundException(
+        `User with ID ${createProjectDto.userId} not found`,
+      );
+    }
+
+    const project = this.projectRepository.create(createProjectDto);
     return this.projectRepository.save(project);
   }
 
@@ -45,7 +54,10 @@ export class ProjectsService {
     });
   }
 
-  async update(id: string, updateProjectDto: UpdateProjectDto): Promise<Project> {
+  async update(
+    id: string,
+    updateProjectDto: UpdateProjectDto,
+  ): Promise<Project> {
     const project = await this.findOne(id);
     Object.assign(project, updateProjectDto);
     return this.projectRepository.save(project);
