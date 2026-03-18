@@ -77,7 +77,7 @@ const handlers = [
   }),
   
   http.post('*/api/projects', async ({ request }) => {
-    const body = await request.json();
+    const body = await request.json() as Record<string, any>;
     return HttpResponse.json({
       id: '3',
       ...body,
@@ -86,7 +86,7 @@ const handlers = [
   }),
   
   http.patch('*/api/projects/:id', async ({ request }) => {
-    const body = await request.json();
+    const body = await request.json() as Record<string, any>;
     return HttpResponse.json({
       ...mockProjects[0],
       ...body,
@@ -103,7 +103,7 @@ const handlers = [
   }),
   
   http.patch('*/api/mentions/:id', async ({ request, params }) => {
-    const body = await request.json();
+    const body = await request.json() as Record<string, any>;
     const mention = mockMentions.find(m => m.id === params.id);
     return HttpResponse.json({ ...mention, ...body });
   }),

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle, XCircle, Star, Filter } from 'lucide-react';
 import { mentionsApi } from '../services/api';
-import { Mention } from '../types';
+import type { Mention } from '../types';
 
 export function Mentions() {
   const [mentions, setMentions] = useState<Mention[]>([]);

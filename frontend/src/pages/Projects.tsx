@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Plus, ExternalLink, Settings, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { projectsApi } from '../services/api';
-import { Project } from '../types';
+import type { Project } from '../types';
 import { Modal } from '../components/Modal';
 
 export function Projects() {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Plus, Code, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Plus, Code } from 'lucide-react';
 import { projectsApi, sourcesApi, widgetApi } from '../services/api';
-import { Project, Source } from '../types';
+import type { Project, Source } from '../types';
 import { Modal } from '../components/Modal';
 
 export function ProjectDetail() {
@@ -13,8 +13,17 @@ export function ProjectDetail() {
   const [loading, setLoading] = useState(true);
   const [isSourceModalOpen, setIsSourceModalOpen] = useState(false);
   const [isWidgetModalOpen, setIsWidgetModalOpen] = useState(false);
-  const [newSource, setNewSource] = useState({
-    platform: 'github' as const,
+  const [newSource, setNewSource] = useState<{
+    platform: Source['platform'];
+    name: string;
+    config: {
+      owner: string;
+      repo: string;
+      includeIssues: boolean;
+      includeComments: boolean;
+    };
+  }>({
+    platform: 'github',
     name: '',
     config: {
       owner: '',

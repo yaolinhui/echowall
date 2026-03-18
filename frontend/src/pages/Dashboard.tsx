@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FolderKanban, MessageSquare, CheckCircle, Clock } from 'lucide-react';
 import { projectsApi, mentionsApi } from '../services/api';
-import { Project, Mention } from '../types';
+import type { Mention } from '../types';
 
 export function Dashboard() {
   const [stats, setStats] = useState({
