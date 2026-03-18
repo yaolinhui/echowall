@@ -31,19 +31,8 @@ import { DistributedLockService } from './distributed-lock.service';
 import { RetryStrategyService } from './retry-strategy.service';
 import { MetricsService } from './metrics.service';
 
-// 任务状态类型
 type JobStatus = 'completed' | 'wait' | 'active' | 'delayed' | 'failed' | 'paused';
 
-/**
- * 任务调度服务
- * 
- * 核心功能：
- * - 任务提交和调度
- * - 任务优先级管理
- * - 任务去重
- * - 任务状态追踪
- * - 任务取消和删除
- */
 @Injectable()
 export class TaskSchedulerService implements OnModuleInit {
   private readonly logger = new Logger(TaskSchedulerService.name);
@@ -65,19 +54,11 @@ export class TaskSchedulerService implements OnModuleInit {
     this.workerId = `worker-${process.pid}-${Date.now()}`;
   }
 
-  async onModuleInit(): Promise<void {
+  async onModuleInit(): Promise<void> {
     this.logger.log(`TaskSchedulerService initialized (worker: ${this.workerId})`);
-    
-    // 设置队列事件监听
     this.setupQueueEventListeners();
   }
 
-  /**
-   * 提交抓取任务
-   * 
-   * @param data 抓取任务数据
-   * @param options 可选的 Job 选项
-   */
   async scheduleFetch(
     data: Omit<FetchTaskData, 'taskId' | 'createdAt' | 'traceId'>,
     options?: JobOptions
@@ -97,9 +78,6 @@ export class TaskSchedulerService implements OnModuleInit {
     );
   }
 
-  /**
-   * 提交批量抓取任务
-   */
   async scheduleBatchFetch(
     data: Omit<BatchFetchTaskData, 'taskId' | 'createdAt' | 'traceId'>,
     options?: JobOptions
@@ -120,9 +98,6 @@ export class TaskSchedulerService implements OnModuleInit {
     );
   }
 
-  /**
-   * 提交分析任务
-   */
   async scheduleAnalysis(
     data: Omit<AnalysisTaskData, 'taskId' | 'createdAt' | 'traceId'>,
     options?: JobOptions
@@ -142,9 +117,6 @@ export class TaskSchedulerService implements OnModuleInit {
     );
   }
 
-  /**
-   * 提交通知任务
-   */
   async scheduleNotification(
     data: Omit<NotificationTaskData, 'taskId' | 'createdAt' | 'traceId'>,
     options?: JobOptions
@@ -164,14 +136,6 @@ export class TaskSchedulerService implements OnModuleInit {
     );
   }
 
-  /**
-   * 通用的任务提交方法
-   * 
-   * @param taskType 任务类型
-   * @param data 任务数据
-   * @param queueName 队列名称
-   * @param options 可选的 Job 选项
-   */
   async scheduleTask<T extends BaseTaskData>(
     taskType: TaskType,
     data: T,
@@ -181,7 +145,6 @@ export class TaskSchedulerService implements OnModuleInit {
     const queue = this.getQueueByName(queueName);
     const config = this.getTaskConfig(taskType);
     
-    // 检查任务去重
     const dedupWindow = config.deduplicationWindow || 0;
     if (dedupWindow > 0) {
       const dedupKey = this.generateDedupKey(data);
@@ -192,11 +155,9 @@ export class TaskSchedulerService implements OnModuleInit {
         throw new Error(`Duplicate task: ${taskType}`);
       }
       
-      // 设置去重锁
       await this.lockService.acquireTaskLock(dedupKey, dedupWindow);
     }
 
-    // 构建 Job 选项
     const jobOptions: JobOptions = {
       jobId: data.taskId,
       priority: data.priority || this.getTaskPriority(taskType),
@@ -206,17 +167,15 @@ export class TaskSchedulerService implements OnModuleInit {
         delay: config.baseRetryDelay,
       },
       timeout: config.timeout,
-      removeOnComplete: 100, // 保留最近 100 个完成的任务
-      removeOnFail: 50,      // 保留最近 50 个失败的任务
+      removeOnComplete: 100,
+      removeOnFail: 50,
       ...options,
     };
 
-    // 添加任务到队列
     const job = await queue.add(taskType, data, jobOptions);
     
     this.logger.log(`Task scheduled: ${taskType} (${job.id}) in queue ${queueName}`);
     
-    // 触发任务创建事件
     this.eventEmitter.emit(TASK_EVENTS.TASK_CREATED, {
       jobId: job.id,
       taskType,
@@ -227,9 +186,6 @@ export class TaskSchedulerService implements OnModuleInit {
     return job;
   }
 
-  /**
-   * 批量提交任务
-   */
   async scheduleBatch<T extends BaseTaskData>(
     tasks: Array<{
       taskType: TaskType;
@@ -259,16 +215,12 @@ export class TaskSchedulerService implements OnModuleInit {
         jobs.push(job);
       } catch (error) {
         this.logger.error(`Failed to schedule task ${task.taskType}:`, error);
-        // 继续处理其他任务
       }
     }
     
     return jobs;
   }
 
-  /**
-   * 延迟调度任务
-   */
   async scheduleDelayed<T extends BaseTaskData>(
     taskType: TaskType,
     data: Omit<T, 'taskId' | 'createdAt' | 'traceId'>,
@@ -287,9 +239,6 @@ export class TaskSchedulerService implements OnModuleInit {
     });
   }
 
-  /**
-   * 定时调度任务（Cron）
-   */
   async scheduleCron<T extends BaseTaskData>(
     taskType: TaskType,
     data: Omit<T, 'taskId' | 'createdAt' | 'traceId'>,
@@ -308,9 +257,6 @@ export class TaskSchedulerService implements OnModuleInit {
     });
   }
 
-  /**
-   * 取消任务
-   */
   async cancelTask(queueName: string, jobId: string | number): Promise<boolean> {
     try {
       const queue = this.getQueueByName(queueName);
@@ -320,11 +266,9 @@ export class TaskSchedulerService implements OnModuleInit {
         return false;
       }
 
-      // 尝试移除任务
       await job.remove();
       
       this.logger.log(`Task cancelled: ${jobId}`);
-      
       this.eventEmitter.emit(TASK_EVENTS.TASK_CANCELLED, { jobId });
       
       return true;
@@ -334,9 +278,6 @@ export class TaskSchedulerService implements OnModuleInit {
     }
   }
 
-  /**
-   * 暂停队列
-   */
   async pauseQueue(queueName: string): Promise<void> {
     const queue = this.getQueueByName(queueName);
     await queue.pause();
@@ -344,9 +285,6 @@ export class TaskSchedulerService implements OnModuleInit {
     this.eventEmitter.emit(TASK_EVENTS.QUEUE_PAUSED, { queueName });
   }
 
-  /**
-   * 恢复队列
-   */
   async resumeQueue(queueName: string): Promise<void> {
     const queue = this.getQueueByName(queueName);
     await queue.resume();
@@ -354,9 +292,6 @@ export class TaskSchedulerService implements OnModuleInit {
     this.eventEmitter.emit(TASK_EVENTS.QUEUE_RESUMED, { queueName });
   }
 
-  /**
-   * 清空队列
-   */
   async cleanQueue(queueName: string, status: JobStatus = 'completed'): Promise<void> {
     const queue = this.getQueueByName(queueName);
     await queue.clean(0, status);
@@ -364,48 +299,30 @@ export class TaskSchedulerService implements OnModuleInit {
     this.eventEmitter.emit(TASK_EVENTS.QUEUE_CLEANED, { queueName, status });
   }
 
-  /**
-   * 获取队列状态
-   */
   async getQueueStatus(queueName?: string): Promise<QueueStatus | QueueStatus[]> {
     return this.metricsService.getQueueStatus(queueName);
   }
 
-  /**
-   * 获取任务详情
-   */
   async getJob(queueName: string, jobId: string | number): Promise<Job | null> {
     const queue = this.getQueueByName(queueName);
     return queue.getJob(jobId);
   }
 
-  /**
-   * 获取等待中的任务
-   */
   async getWaitingJobs(queueName: string, start = 0, end = 100): Promise<Job[]> {
     const queue = this.getQueueByName(queueName);
     return queue.getWaiting(start, end);
   }
 
-  /**
-   * 获取活跃的任务
-   */
   async getActiveJobs(queueName: string, start = 0, end = 100): Promise<Job[]> {
     const queue = this.getQueueByName(queueName);
     return queue.getActive(start, end);
   }
 
-  /**
-   * 获取失败的任务
-   */
   async getFailedJobs(queueName: string, start = 0, end = 100): Promise<Job[]> {
     const queue = this.getQueueByName(queueName);
     return queue.getFailed(start, end);
   }
 
-  /**
-   * 重试失败的任务
-   */
   async retryJob(queueName: string, jobId: string | number): Promise<void> {
     const queue = this.getQueueByName(queueName);
     const job = await queue.getJob(jobId);
@@ -415,8 +332,6 @@ export class TaskSchedulerService implements OnModuleInit {
       this.logger.log(`Job retried: ${jobId}`);
     }
   }
-
-  // ==================== 私有方法 ====================
 
   private setupQueueEventListeners(): void {
     const queues = [
@@ -428,7 +343,6 @@ export class TaskSchedulerService implements OnModuleInit {
     ];
 
     for (const { queue, name } of queues) {
-      // 任务完成
       queue.on('completed', (job, result) => {
         this.logger.debug(`Job completed in ${name}: ${job.id}`);
         this.eventEmitter.emit(TASK_EVENTS.TASK_COMPLETED, {
@@ -437,12 +351,10 @@ export class TaskSchedulerService implements OnModuleInit {
           result,
         });
         
-        // 记录成功
         const taskType = job.data.taskType || 'unknown';
         this.retryStrategy.recordSuccess(taskType);
       });
 
-      // 任务失败
       queue.on('failed', (job, error) => {
         this.logger.error(`Job failed in ${name}: ${job.id}`, error.message);
         this.eventEmitter.emit(TASK_EVENTS.TASK_FAILED, {
@@ -452,7 +364,6 @@ export class TaskSchedulerService implements OnModuleInit {
         });
       });
 
-      // 任务停滞
       queue.on('stalled', (job) => {
         this.logger.warn(`Job stalled in ${name}: ${job.id}`);
         this.eventEmitter.emit(TASK_EVENTS.TASK_STALLED, {
@@ -461,7 +372,6 @@ export class TaskSchedulerService implements OnModuleInit {
         });
       });
 
-      // 进度更新
       queue.on('progress', (job, progress) => {
         this.logger.debug(`Job progress in ${name}: ${job.id} - ${progress}%`);
       });
@@ -512,7 +422,6 @@ export class TaskSchedulerService implements OnModuleInit {
   }
 
   private generateDedupKey(data: BaseTaskData): string {
-    // 根据任务类型和数据生成去重键
     const keyParts = [data.taskType];
     
     if ('sourceId' in data) {
