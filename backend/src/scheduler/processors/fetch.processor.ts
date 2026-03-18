@@ -19,8 +19,6 @@ import { MetricsService } from '../services/metrics.service';
  * - 历史数据抓取
  */
 @Processor('fetcher')
-@Processor('high-priority')
-@Processor('low-priority')
 export class FetchProcessor {
   private readonly logger = new Logger(FetchProcessor.name);
 
