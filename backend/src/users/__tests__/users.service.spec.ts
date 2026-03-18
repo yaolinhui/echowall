@@ -20,7 +20,7 @@ describe('UsersService', () => {
     email: 'test@example.com',
     password: 'hashed-password',
     name: 'Test User',
-    avatar: null,
+    avatar: null as any,
     plan: 'free',
     settings: {},
     projects: [],

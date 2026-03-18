@@ -52,7 +52,7 @@ export class NotificationProcessor {
       }
 
       const stats = this.calculateStats(job, startTime);
-      await this.metricsService.recordTaskMetrics(TaskType.NOTIFICATION, stats, true);
+      await this.metricsService.recordTaskMetrics(TaskType.EMAIL_NOTIFICATION, stats, true);
 
       this.logger.log(`[${job.id}] Notification sent successfully`);
 
@@ -63,7 +63,7 @@ export class NotificationProcessor {
       };
     } catch (error) {
       const stats = this.calculateStats(job, startTime);
-      await this.metricsService.recordTaskMetrics(TaskType.NOTIFICATION, stats, false);
+      await this.metricsService.recordTaskMetrics(TaskType.EMAIL_NOTIFICATION, stats, false);
       throw error;
     }
   }

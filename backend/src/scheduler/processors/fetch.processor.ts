@@ -211,8 +211,8 @@ export class FetchProcessor {
     
     this.logger.log(`[${job.id}] Starting batch fetch for ${sourceIds.length} sources`);
     
-    const results = [];
-    const errors = [];
+    const results: any[] = [];
+    const errors: Array<{ sourceId: string; error: string }> = [];
     
     if (parallel) {
       // 并行处理
@@ -220,8 +220,8 @@ export class FetchProcessor {
       
       for (const batch of batches) {
         const batchPromises = batch.map(sourceId =>
-          this.fetchSingleSource(sourceId).catch(error => {
-            errors.push({ sourceId, error: error.message });
+          this.fetchSingleSource(sourceId as string).catch(error => {
+            errors.push({ sourceId: sourceId as string, error: error.message });
             return null;
           })
         );

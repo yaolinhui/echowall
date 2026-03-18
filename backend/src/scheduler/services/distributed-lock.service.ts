@@ -103,7 +103,10 @@ export class DistributedLockService {
     const key = this.getLockKey(resource);
     
     // 尝试获取锁，支持重试
-    for (let attempt = 0; attempt <= opts.retryCount; attempt++) {
+    const retryCount = opts.retryCount ?? 0;
+    const retryDelay = opts.retryDelay ?? 100;
+    
+    for (let attempt = 0; attempt <= retryCount; attempt++) {
       try {
         const acquired = await this.tryAcquireLock(key, token, opts.ttl);
         
@@ -121,8 +124,8 @@ export class DistributedLockService {
         }
         
         // 最后一次不重试
-        if (attempt < opts.retryCount) {
-          await this.sleep(opts.retryDelay);
+        if (attempt < retryCount) {
+          await this.sleep(retryDelay);
         }
       } catch (error) {
         this.logger.error(`Failed to acquire lock ${resource}:`, error);

@@ -20,9 +20,9 @@ describe('SourcesService', () => {
       includeComments: true,
     },
     isActive: true,
-    lastFetchedAt: null,
+    lastFetchedAt: null as any,
     projectId: 'project-id',
-    project: null,
+    project: null as any,
     createdAt: new Date(),
     updatedAt: new Date(),
   };

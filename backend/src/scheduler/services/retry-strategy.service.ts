@@ -193,7 +193,7 @@ export class RetryStrategyService {
    * @param error 错误对象
    */
   parseHttpError(error: Error): { statusCode: number; retryAfter?: number } {
-    const statusCode = this.extractStatusCode(error);
+    const statusCode = this.extractStatusCode(error) ?? 0;
     const retryAfter = this.extractRetryAfter(error);
     
     return { statusCode, retryAfter };

@@ -145,7 +145,7 @@ describe('GithubAdapter', () => {
       expect(issueResult).toBeDefined();
       expect(issueResult?.content).toBe(mockIssues[0].body);
       expect(issueResult?.authorName).toBe('testuser');
-      expect(issueResult?.metadata.type).toBe('issue');
+      expect(issueResult?.metadata?.type).toBe('issue');
 
       // 验证 PR 被过滤
       const prResult = result.find((r) => r.externalId === 'github:issue:3');
@@ -154,7 +154,7 @@ describe('GithubAdapter', () => {
       // 验证 comments
       const commentResult = result.find((r) => r.externalId === 'github:comment:1001');
       expect(commentResult).toBeDefined();
-      expect(commentResult?.metadata.type).toBe('comment');
+      expect(commentResult?.metadata?.type).toBe('comment');
     });
 
     it('should handle API errors gracefully', async () => {

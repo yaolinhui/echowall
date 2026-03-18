@@ -176,6 +176,8 @@ export function RateLimit(options: {
   ) {
     const callTimes: number[] = [];
 
+    const originalMethod = descriptor.value;
+    
     descriptor.value = async function (...args: any[]) {
       const now = Date.now();
       

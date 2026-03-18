@@ -24,7 +24,7 @@ describe('ProjectsService', () => {
     },
     isActive: true,
     userId: 'user-id',
-    user: null,
+    user: null as any,
     sources: [],
     mentions: [],
     createdAt: new Date(),
@@ -36,7 +36,7 @@ describe('ProjectsService', () => {
     email: 'test@example.com',
     password: 'hashed-password',
     name: 'Test User',
-    avatar: null,
+    avatar: null as any,
     plan: 'free',
     settings: {},
     projects: [],
@@ -119,7 +119,7 @@ describe('ProjectsService', () => {
     });
 
     it('should create default user when userId not provided', async () => {
-      const dtoWithoutUserId = { ...createProjectDto, userId: undefined };
+      const dtoWithoutUserId = { ...createProjectDto, userId: undefined as any };
       mockUserRepository.findOne.mockResolvedValue(null);
       mockUserRepository.create.mockReturnValue(mockUser);
       mockUserRepository.save.mockResolvedValue(mockUser);
@@ -192,7 +192,7 @@ describe('ProjectsService', () => {
       name: 'Updated Project',
       widgetConfig: {
         theme: 'dark',
-        layout: 'grid',
+        layout: 'grid' as const,
         maxItems: 20,
         autoPlay: false,
       },

@@ -5,6 +5,7 @@ import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DeadLetterMessage, TaskResult } from '../interfaces/task.interface';
+import { TaskType } from '../enums/task-type.enum';
 import { PROCESSOR_NAMES, TASK_EVENTS, QUEUE_NAMES } from '../constants/queue.constants';
 import { TaskSchedulerService } from '../services/task-scheduler.service';
 import { MetricsService } from '../services/metrics.service';
@@ -155,8 +156,8 @@ export class DlqProcessor {
 
     // 提交到死信队列
     await this.taskScheduler.scheduleTask(
-      'dead-letter-process' as any,
-      deadLetter,
+      TaskType.DATA_CLEANUP,
+      deadLetter as any,
       QUEUE_NAMES.DEAD_LETTER,
       {
         priority: 5, // 中等优先级
@@ -383,6 +384,7 @@ export class DlqProcessor {
   private async sendAlert(message: DeadLetterMessage): Promise<void> {
     // 发送通知
     await this.taskScheduler.scheduleNotification({
+      taskType: TaskType.EMAIL_NOTIFICATION,
       notificationType: 'in-app',
       recipients: ['admin'],
       subject: `Task Failed: ${message.originalJob.data?.taskType}`,

@@ -45,7 +45,7 @@ export class AnalysisProcessor {
       
       // 分批处理
       const batchSize = 50;
-      const results = [];
+      const results: Array<{ mentionId: string; sentiment: string; score: number }> = [];
       
       for (let i = 0; i < mentions.length; i += batchSize) {
         const batch = mentions.slice(i, i + batchSize);
